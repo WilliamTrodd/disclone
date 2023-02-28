@@ -1,0 +1,25 @@
+{
+  "name": "disclone",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "src/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint --parallel",
+    "fix": "turbo run fix --parallel --continue",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "prettier": "latest",
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "packageManager": "pnpm@7.28.0"
+}
