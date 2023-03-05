@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import ServerList from "../components/ServerList.vue";
-import ChannelList from "../components/ChannelList.vue";
-import MessageList from "../components/MessageList.vue";
-import MessageInput from "../components/MessageInput.vue";
+import { onBeforeMount, onMounted, ref } from "vue";
+import ServerList from '../components/ServerList.vue';
+import ChannelList from '../components/ChannelList.vue';
+import MessageList from '../components/MessageList.vue';
+import MessageInput from '../components/MessageInput.vue';
+//import serversService from '../services/servers';
+import axios from "axios";
+import { store } from '../store'
+/*
 const servers = ref([
   {
     _id: "63f87660663ff1ba522c6f6f",
@@ -231,30 +235,63 @@ const servers = ref([
     ],
   },
 ]);
-const currentServer = "63f87660663ff1ba522c6f6f";
-const currentChannel = "main";
+*/
+
+
+/*
+const servers = ref([])
+
+const fetchData = () => {
+  serversService.getAll().then(
+    fetchedData => servers.value = fetchedData
+    )
+  }
+  fetchData()
+  
+  
+  */
+
+
+
+const serversEmpty = ref(true)
+const servers = ref([])
+
+const getServers = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/api/servers')
+    servers.value = response.data
+    serversEmpty.value = false
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+onBeforeMount(() => {
+  getServers()
+})
+
+
+
 </script>
 
+
 <template>
-  <div class="flex">
+  <div :v-if='!serversEmpty' class="flex">
     <div class="flex">
       <ServerList :servers="servers" />
-      <ChannelList
-        :channels="
-          servers.filter((server) => server._id === currentServer)[0].channels
-        "
-      />
+      <ChannelList :channels="
+        servers.filter((server) => server._id === store.currentServer)[0].channels
+      " />
     </div>
     <div class="flex flex-col max-h-screen w-full">
-      <MessageList
-        :messages="
-          servers
-            .filter((server) => server._id === currentServer)[0]
-            .channels.filter((channel) => channel.name === currentChannel)[0]
-            .messages
-        "
-      />
+      <MessageList :messages="
+        servers
+          .filter((server) => server._id === store.currentServer)[0]
+          .channels.filter((channel) => channel.name === store.currentChannel)[0]
+          .messages
+      " />
       <MessageInput />
     </div>
   </div>
 </template>
+
