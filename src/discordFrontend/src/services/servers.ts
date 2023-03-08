@@ -28,20 +28,45 @@ interface Server {
   channels: Channel[],
 }
 
-const getAll = async () => {
-  let data = <Server[]>[]
-  const error: string = ""
-
-  try{
-    const response = await axios.get(baseUrl)
-    data = response.data
-  } catch (err) {
-    console.log(error)
+const getServers = async () => {
+  let servers: Server[] = []
+  
+  try {
+    const response = await axios.get('http://localhost:3001/api/servers')
+    servers = response.data
+  } catch (e) {
+    console.log(e)
   }
 
-  console.log()
-    
-  return data
+  return servers
 }
 
-export default { getAll };
+const getChannels = async (serverId: string) => {
+  let channels
+
+  try {
+    const response = await axios.get(`http://localhost:3001/api/servers/${serverId}`)
+    console.log(response)
+    channels = response.data.channels
+  } catch (e) {
+    console.log(e)
+  }
+
+  return channels
+}
+
+const getMessages = async (serverId: string, channel: string) => {
+  let messages
+
+  try {
+    const response = await axios.get(`http://localhost:3001/api/servers/${serverId}/${channel}`)
+    console.log(response)
+    messages = response.data.messages
+  } catch (e) {
+    console.log(e)
+  }
+
+  return messages
+}
+
+export default { getServers, getChannels, getMessages };

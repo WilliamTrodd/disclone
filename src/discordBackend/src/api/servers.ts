@@ -18,7 +18,8 @@ const connectToDb = async () => {
 serversRouter.get('/', async (req, res) => {
   try {
     const servers = await connectToDb()
-    const allServers = await servers.find({}).toArray()
+    const projection = { channels: { messages: 0 } }
+    const allServers = await servers.find({}).project(projection).toArray()
     res.json(allServers)
   } catch (e) {
     console.log(e)
@@ -29,7 +30,6 @@ serversRouter.get('/:id', async (req, res) => {
   try {
     const servers = await connectToDb()
     const server = await servers.findOne({ _id: new ObjectId(req.params.id) })
-    console.log(server)
     res.json(server)
   } catch (e) {
     console.log(e)

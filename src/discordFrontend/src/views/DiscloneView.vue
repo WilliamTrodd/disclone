@@ -1,296 +1,70 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref } from "vue";
+import { onBeforeMount, onMounted, onUpdated, ref, watch } from "vue";
 import ServerList from '../components/ServerList.vue';
 import ChannelList from '../components/ChannelList.vue';
 import MessageList from '../components/MessageList.vue';
 import MessageInput from '../components/MessageInput.vue';
-//import serversService from '../services/servers';
+import serversService from '../services/servers';
 import axios from "axios";
 import { store } from '../store'
-/*
-const servers = ref([
-  {
-    _id: "63f87660663ff1ba522c6f6f",
-    name: "Test Server",
-    icon: "src/assets/logo.svg",
-    users: [{ id: "63f84cf878b9a5c96f8bf92d" }],
-    channels: [
-      {
-        name: "main",
-        messages: [
-          {
-            text: "Message text",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-          {
-            text: "Message text",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-          {
-            text: "add message",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322122216",
-            _id: "63f9e78a147dc574822bec61",
-          },
-          {
-            text: "Test 3",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322222758",
-            _id: "63f9e7ee147dc574822bec62",
-          },
-          {
-            text: "Message text",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-          {
-            text: "add message",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322122216",
-            _id: "63f9e78a147dc574822bec61",
-          },
-          {
-            text: "Test 3",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322222758",
-            _id: "63f9e7ee147dc574822bec62",
-          },
-          {
-            text: "Message text",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-          {
-            text: "add message",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322122216",
-            _id: "63f9e78a147dc574822bec61",
-          },
-          {
-            text: "Test 3",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322222758",
-            _id: "63f9e7ee147dc574822bec62",
-          },
-          {
-            text: "add message",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322122216",
-            _id: "63f9e78a147dc574822bec61",
-          },
-          {
-            text: "Test 3",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322222758",
-            _id: "63f9e7ee147dc574822bec62",
-          },
-          {
-            text: "Message text",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-          {
-            text: "add message",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322122216",
-            _id: "63f9e78a147dc574822bec61",
-          },
-          {
-            text: "Test 3",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322222758",
-            _id: "63f9e7ee147dc574822bec62",
-          },
-          {
-            text: "Message text",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-          {
-            text: "add message",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322122216",
-            _id: "63f9e78a147dc574822bec61",
-          },
-          {
-            text: "Test 3",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322222758",
-            _id: "63f9e7ee147dc574822bec62",
-          },
-          {
-            text: "Message text",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-          {
-            text: "add message",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322122216",
-            _id: "63f9e78a147dc574822bec61",
-          },
-          {
-            text: "Test 3",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322222758",
-            _id: "63f9e7ee147dc574822bec62",
-          },
-          {
-            text: "Message text",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-          {
-            text: "add message",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322122216",
-            _id: "63f9e78a147dc574822bec61",
-          },
-          {
-            text: "Test 3",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322222758",
-            _id: "63f9e7ee147dc574822bec62",
-          },
-          {
-            text: "Message text",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-          {
-            text: "add message",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322122216",
-            _id: "63f9e78a147dc574822bec61",
-          },
-          {
-            text: "Test 3",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322222758",
-            _id: "63f9e7ee147dc574822bec62",
-          },
-        ],
-        _id: "63f8a0e5663ff1ba522c6f75",
-      },
-      {
-        name: "funny cats",
-        messages: [
-          {
-            text: "hehehaha",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-          {
-            text: "hehehaha",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    _id: "63f84cf878b9a5c96f8bf92d",
-    name: "Server 2",
-    icon: "src/assets/logo.svg",
-    users: [{ id: "63f84cf878b9a5c96f8bf92d" }],
-    channels: [
-      {
-        name: "main",
-        messages: [
-          {
-            text: "S2 test",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1674399419301",
-            _id: "63f8a100663ff1ba522c6f76",
-          },
-          {
-            text: "S2 test 2",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322122216",
-            _id: "63f9e78a147dc574822bec61",
-          },
-          {
-            text: "S2 Test 3",
-            user: "63f84cf878b9a5c96f8bf92d",
-            time: "1677322222758",
-            _id: "63f9e7ee147dc574822bec62",
-          },
-        ],
-        _id: "63f8a0e5663ff1ba522c6f75",
-      },
-    ],
-  },
-]);
-*/
-
-
-/*
-const servers = ref([])
-
-const fetchData = () => {
-  serversService.getAll().then(
-    fetchedData => servers.value = fetchedData
-    )
-  }
-  fetchData()
-  
-  
-  */
-
 
 
 const serversEmpty = ref(true)
 const servers = ref([])
+const channels = ref([])
 
 const getServers = async () => {
   try {
     const response = await axios.get('http://localhost:3001/api/servers')
     servers.value = response.data
+    console.log(servers.value)
     serversEmpty.value = false
   } catch (e) {
     console.log(e)
   }
 }
 
+const getChannels = async (serverId: string) => {
+  try {
+    const response = await axios.get(`http://localhost:3001/api/servers/${serverId}`)
+    console.log(response)
+    channels.value = response.data.channels
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+
 onBeforeMount(() => {
   getServers()
+  getChannels(store.currentServer.id)
+})
+/*
+onMounted(() => {
+  getMessages(servers.value[0]._id, channels[0].name)
 })
 
+*/
+
+watch(store.currentServer, () => {
+  getChannels(store.currentServer.id)
+})
 
 
 </script>
 
 
 <template>
-  <div :v-if='!serversEmpty' class="flex">
-    <div class="flex">
-      <ServerList :servers="servers" />
-      <ChannelList :channels="
-        servers.filter((server) => server._id === store.currentServer)[0].channels
-      " />
-    </div>
-    <div class="flex flex-col max-h-screen w-full">
-      <MessageList :messages="
-        servers
-          .filter((server) => server._id === store.currentServer)[0]
-          .channels.filter((channel) => channel.name === store.currentChannel)[0]
-          .messages
-      " />
-      <MessageInput />
+  <div v-if='servers' class="flex justify-start">
+    <ServerList :servers="servers" />
+    <ChannelList :channels="channels" />
+  </div>
+  <div v-else class="flex items-center justify-center">
+    <div
+      class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+      role="status">
+      <span
+        class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
     </div>
   </div>
 </template>

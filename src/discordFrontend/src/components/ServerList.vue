@@ -3,22 +3,24 @@ import { store } from '../store'
 
 const props = defineProps(["servers"]);
 
-const changeServer = (id: string, channel: string) => {
-  store.currentServer = id
-  store.currentChannel = channel
+const changeServer = (name: string, id: string) => {
+  store.currentServer.id = id
+  store.currentServer.name = name
 }
 </script>
 
 <template>
   <div class="flex flex-col bg-dc-grey-800 w-fit px-2 mx-auto pt-2 content-center">
-    <div class="h-12 w-12 rounded-full mb-2 overflow-hidden bg-dc-grey-text hover:bg-dc-blue-800 hover:rounded-lg"></div>
+    <div
+      class="h-12 w-12 rounded-full mb-2 overflow-hidden bg-dc-grey-text hover:bg-dc-blue-800 hover:transition-[border-radius] hover:duration-500 hover:rounded-[20px] hover:cursor-pointer">
+    </div>
     <svg viewBox="0 0 100 20">
       <line x1="25" y1="0" x2="75" y2="0" class="stroke-dc-grey-text" />
     </svg>
 
     <div v-for="server in props.servers" :key="server._id"
-      class="inline-block h-12 w-12 rounded-full mb-2 overflow-hidden bg-dc-blue-800 hover:rounded-lg transition-all duration-1000"
-      @click="changeServer(server._id, server.channels[0].name)">
+      class="inline-block h-12 w-12 rounded-full mb-2 overflow-hidden bg-dc-blue-800 hover:cursor-pointer hover:transition-all duration-200 ease-in hover:rounded-lg"
+      @click="changeServer(server.name, server._id)">
       <img :src="server.icon" />
     </div>
   </div>
