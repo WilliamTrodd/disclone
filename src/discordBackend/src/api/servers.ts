@@ -15,7 +15,7 @@ const connectToDb = async () => {
   return servers
 }
 
-serversRouter.get('/', async (req, res) => {
+serversRouter.get('/', async (_req, res) => {
   try {
     const servers = await connectToDb()
     const projection = { channels: { messages: 0 } }
