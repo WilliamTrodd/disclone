@@ -15,7 +15,7 @@ export interface Message {
   _id: ObjectId
 }
 
-interface Channel {
+export interface Channel {
   name: string
   messages: Message[]
   _id: ObjectId
