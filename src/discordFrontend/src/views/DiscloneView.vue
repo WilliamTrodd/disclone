@@ -2,9 +2,6 @@
 import { onBeforeMount, onMounted, onUpdated, ref, watch } from "vue";
 import ServerList from '../components/ServerList.vue';
 import ChannelList from '../components/ChannelList.vue';
-import MessageList from '../components/MessageList.vue';
-import MessageInput from '../components/MessageInput.vue';
-import serversService from '../services/servers';
 import axios from "axios";
 import { store } from '../store'
 

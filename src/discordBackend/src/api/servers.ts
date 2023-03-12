@@ -47,7 +47,6 @@ serversRouter.get('/:id', async (req, res) => {
     ]
     const gotServers = servers.aggregate(agg)
     const serverWithChannels = await gotServers.toArray()
-    console.log(serverWithChannels)
     res.json(serverWithChannels[0])
   } catch (e) {
     console.log(e)

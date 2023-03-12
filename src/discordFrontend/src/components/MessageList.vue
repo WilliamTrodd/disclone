@@ -1,6 +1,8 @@
 <script setup lang="ts">
 
-const props = defineProps(["messages"]);
+import Message from './Message.vue'
+
+const props = defineProps(['messages']);
 
 </script>
 
@@ -10,10 +12,7 @@ const props = defineProps(["messages"]);
       <div class="rounded-full w-8 h-8 bg-dc-blue-800 text-center align-middle mr-2">
         x
       </div>
-      <div class="grow text-sm flex flex-col">
-        <div>{{ message.user }} - {{ message.time }}</div>
-        <div>{{ message.text }}</div>
-      </div>
+      <Message :username="message.user.username" :text="message.text" :timestamp="message.timestamp" />
     </div>
   </div>
 </template>

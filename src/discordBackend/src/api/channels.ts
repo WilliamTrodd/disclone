@@ -44,9 +44,29 @@ channelsRouter.get('/:id', async (req, res) => {
           channelId: new ObjectId(req.params.id),
         },
       },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'userId',
+          foreignField: '_id',
+          as: 'user',
+        },
+      },
+      {
+        $unwind: {
+          path: '$user',
+        },
+      },
+      {
+        $sort: {
+          timestamp: -1,
+        },
+      },
     ]
     const gotMessages = messages.aggregate(agg)
+    console.log(gotMessages)
     const channelMessages = await gotMessages.toArray()
+    console.log(channelMessages)
     res.json(channelMessages)
   } catch (e) {
     console.log(e)
