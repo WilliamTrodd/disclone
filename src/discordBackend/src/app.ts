@@ -1,5 +1,6 @@
 const express = require('express')
 const usersRouter = require('./api/users')
+const channelsRouter = require('./api/channels')
 const serversRouter = require('./api/servers')
 const { decodeToken } = require('./utils/middleware')
 const cors = require('cors')
@@ -10,6 +11,7 @@ discordApp.use(cors())
 discordApp.use(express.json())
 //discordApp.use(decodeToken);
 discordApp.use('/api/users', usersRouter)
+discordApp.use('/api/channels', channelsRouter)
 discordApp.use('/api/servers', serversRouter)
 
 module.exports = discordApp

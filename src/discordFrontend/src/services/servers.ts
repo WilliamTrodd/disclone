@@ -46,6 +46,7 @@ const getChannels = async (serverId: string) => {
 
   try {
     const response = await axios.get(`http://localhost:3001/api/servers/${serverId}`)
+    console.log('Channels')
     console.log(response)
     channels = response.data.channels
   } catch (e) {

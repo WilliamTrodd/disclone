@@ -10,13 +10,15 @@ import { store } from '../store'
 
 
 const serversEmpty = ref(true)
-const servers = ref([])
-const channels = ref([])
+const servers: any = ref([])
+const channels: any = ref([])
 
 const getServers = async () => {
   try {
     const response = await axios.get('http://localhost:3001/api/servers')
     servers.value = response.data
+    store.currentServer.name = servers.value[0].name
+    store.currentServer.id = servers.value[0]._id
     console.log(servers.value)
     serversEmpty.value = false
   } catch (e) {
@@ -27,8 +29,10 @@ const getServers = async () => {
 const getChannels = async (serverId: string) => {
   try {
     const response = await axios.get(`http://localhost:3001/api/servers/${serverId}`)
-    console.log(response)
     channels.value = response.data.channels
+    store.currentChannel.id = channels.value[0]._id
+    store.currentChannel.name = channels.value[0].name
+
   } catch (e) {
     console.log(e)
   }

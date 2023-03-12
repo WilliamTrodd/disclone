@@ -9,16 +9,17 @@ const props = defineProps(["channels"])
 const messages = ref([])
 
 
-const setChannel = (name: string) => {
-  store.currentChannel = name
+const setChannel = (name: string, id: string) => {
+  store.currentChannel.name = name
+  store.currentChannel.id = id
   getMessages()
 }
 
 const getMessages = async () => {
   try {
-    const response = await axios.get(`http://localhost:3001/api/servers/${store.currentServer.id}/${store.currentChannel}`)
+    const response = await axios.get(`http://localhost:3001/api/channels/${store.currentChannel.id}`)
     console.log(response)
-    messages.value = response.data.messages
+    messages.value = response.data
     console.log(messages)
   } catch (e) {
     console.log(e)
@@ -39,7 +40,7 @@ onMounted(() => {
       <div class="border-t-2 border-dc-grey-800 pt-4">
         <div v-for="channel in props.channels" :key="channel._id"
           class="mx-2 px-2 py-[1px] text-dc-grey-text rounded-[4px] hover:bg-dc-grey-100 hover:text-white hover:cursor-pointer"
-          @click="setChannel(channel.name)">
+          @click="setChannel(channel.name, channel._id)">
           <div class="flex">
             <div class="mr-[6px]">
               <svg width="24" height="24" viewBox="0 0 24 24" class="" aria-hidden="true" role="img">
