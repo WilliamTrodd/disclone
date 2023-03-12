@@ -5,3 +5,8 @@ export const store = reactive({
   currentChannel: {id: "", name:""},
   messages: [],
 })
+
+/*
+Should I add serverList: {{serverName: __, serverIcon: __, serverId: __}, {...}}
+same with channelList: {{channelName: __, channelId: __}}
+*/

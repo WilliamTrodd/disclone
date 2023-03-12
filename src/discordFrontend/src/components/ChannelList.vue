@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { watch, ref } from "vue"
 import { store } from '../store'
 import axios from 'axios'
 import MessageList from "./MessageList.vue";
@@ -26,7 +26,7 @@ const getMessages = async () => {
   }
 }
 
-onMounted(() => {
+watch(store.currentChannel, () => {
   getMessages()
 })
 
