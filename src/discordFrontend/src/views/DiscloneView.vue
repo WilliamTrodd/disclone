@@ -2,6 +2,7 @@
 import { onBeforeMount, onMounted, onUpdated, ref, watch } from "vue";
 import ServerList from '../components/ServerList.vue';
 import ChannelList from '../components/ChannelList.vue';
+import ChatContainer from '../components/ChatContainer.vue'
 import axios from "axios";
 import { store } from '../store'
 
@@ -29,7 +30,6 @@ const getChannels = async (serverId: string) => {
     channels.value = response.data.channels
     store.currentChannel.id = channels.value[0]._id
     store.currentChannel.name = channels.value[0].name
-
   } catch (e) {
     console.log(e)
   }
@@ -56,9 +56,10 @@ watch(store.currentServer, () => {
 
 
 <template>
-  <div v-if='servers' class="flex justify-start">
+  <div v-if='servers' class="flex">
     <ServerList :servers="servers" />
     <ChannelList :channels="channels" />
+    <ChatContainer />
   </div>
   <div v-else class="flex items-center justify-center">
     <div

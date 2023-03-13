@@ -1,8 +1,13 @@
 <script setup lang="ts">
-
+import { onBeforeMount, onMounted, ref } from 'vue'
 import Message from './Message.vue'
 
 const props = defineProps(['messages']);
+
+onMounted(() => {
+  console.log(props.messages)
+
+})
 
 </script>
 

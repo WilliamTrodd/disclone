@@ -1,43 +1,23 @@
 <script setup lang="ts">
-import { watch, ref } from "vue"
 import { store } from '../store'
-import axios from 'axios'
-import MessageList from "./MessageList.vue";
-import MessageInput from "./MessageInput.vue";
 
 const props = defineProps(["channels"])
-const messages = ref([])
-
 
 const setChannel = (name: string, id: string) => {
   store.currentChannel.name = name
   store.currentChannel.id = id
-  getMessages()
 }
-
-const getMessages = async () => {
-  try {
-    const response = await axios.get(`http://localhost:3001/api/channels/${store.currentChannel.id}`)
-    console.log(response)
-    messages.value = response.data
-    console.log(messages)
-  } catch (e) {
-    console.log(e)
-  }
-}
-
-watch(store.currentChannel, () => {
-  getMessages()
-})
-
 
 </script>
 
 <template>
-  <div class="flex grow ">
+  <div class="flex">
     <div class="flex-none flex-col bg-dc-grey-500 w-60 min-h-screen">
-      <div class="flex h-12 mb-2 p-2">{{ store.currentServer.name }}</div>
-      <div class="border-t-2 border-dc-grey-800 pt-4">
+      <div
+        class="flex cursor-pointer shadow-1ch h-12 mb-2 px-4 py-3 bg-dc-grey-500 hover:bg-dc-grey-200 transition-colors duration-100 text-white">
+        {{ store.currentServer.name }}
+      </div>
+      <div class="pt-2">
         <div v-for="channel in props.channels" :key="channel._id"
           class="mx-2 px-2 py-[1px] text-dc-grey-text rounded-[4px] hover:bg-dc-grey-100 hover:text-white hover:cursor-pointer"
           @click="setChannel(channel.name, channel._id)">
@@ -53,10 +33,6 @@ watch(store.currentChannel, () => {
           </div>
         </div>
       </div>
-    </div>
-    <div class="flex grow flex-col max-h-screen">
-      <MessageList :messages="messages" />
-      <MessageInput />
     </div>
   </div>
 </template>
