@@ -10,19 +10,19 @@ export interface User {
 
 export interface Message {
   text: string
-  user: ObjectId
-  time: Date
+  channelId: ObjectId
+  userId: ObjectId
+  timestamp: Date
   _id: ObjectId
 }
 
 export interface Channel {
   name: string
-  messages: Message[]
+  serverId: ObjectId
   _id: ObjectId
 }
-interface Server {
+export interface Server {
   name: string
-  channels: Channel[]
   icon: string
   users: User[]
   _id: ObjectId
