@@ -23,6 +23,17 @@ const connectToMessages = async () => {
   return messages
 }
 
+const watchMessages = async () => {
+  const client = await connectToCluster(uri)
+  const messages = client.db('discordClone').collection('messages').watch()
+  messages.on('change', (next) => {
+    console.log(next)
+  })
+  messages.close()
+}
+
+watchMessages()
+
 // get all channels
 channelsRouter.get('/', async (req, res) => {
   try {
@@ -64,6 +75,7 @@ channelsRouter.get('/:id', async (req, res) => {
       },
     ]
     const gotMessages = messages.aggregate(agg)
+
     const channelMessages = await gotMessages.toArray()
     console.log(channelMessages)
     res.json(channelMessages)

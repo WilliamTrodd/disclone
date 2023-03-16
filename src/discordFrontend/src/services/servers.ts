@@ -28,6 +28,7 @@ interface Server {
   channels: Channel[],
 }
 
+//TODO BASE_URL to env file
 const getServers = async () => {
   let servers: Server[] = []
   

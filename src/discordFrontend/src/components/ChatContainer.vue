@@ -4,6 +4,8 @@ import { store } from '../store'
 import axios from 'axios'
 import MessageList from './MessageList.vue'
 import MessageInput from './MessageInput.vue'
+import ActiveUsers from './ActiveUsers.vue'
+import ChatBanner from './ChatBanner.vue'
 
 interface User {
   _id: string
@@ -38,8 +40,14 @@ watch(store.currentChannel, () => {
 </script>
 
 <template>
-  <div class="flex grow flex-col max-h-screen">
-    <MessageList :messages="messages" />
-    <MessageInput />
+  <div class="flex flex-col grow">
+    <ChatBanner />
+    <div class="flex flex-row grow overflow-auto">
+      <div class="flex flex-col grow ">
+        <MessageList :messages="messages" />
+        <MessageInput />
+      </div>
+      <ActiveUsers />
+    </div>
   </div>
 </template>

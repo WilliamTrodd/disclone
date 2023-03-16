@@ -7,14 +7,25 @@ import axios from "axios";
 import { store } from '../store'
 
 
+interface Server {
+  name: string
+  _id: string
+  icon: string
+}
+interface Channel {
+  name: string
+  _id: string
+  serverId: string
+}
+
 const serversEmpty = ref(true)
-const servers: any = ref([])
-const channels: any = ref([])
+const servers = ref<Server[]>([]) //TODO types to a new file, and import and use here
+const channels = ref<Channel[]>([])
 
 const getServers = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/servers')
-    servers.value = response.data
+    const { data } = await axios.get('http://localhost:3001/api/servers')
+    servers.value = data
     store.currentServer.name = servers.value[0].name
     store.currentServer.id = servers.value[0]._id
     console.log(servers.value)
@@ -26,8 +37,8 @@ const getServers = async () => {
 
 const getChannels = async (serverId: string) => {
   try {
-    const response = await axios.get(`http://localhost:3001/api/servers/${serverId}`)
-    channels.value = response.data.channels
+    const { data } = await axios.get(`http://localhost:3001/api/servers/${serverId}`)
+    channels.value = data.channels
     store.currentChannel.id = channels.value[0]._id
     store.currentChannel.name = channels.value[0].name
   } catch (e) {
@@ -56,7 +67,7 @@ watch(store.currentServer, () => {
 
 
 <template>
-  <div v-if='servers' class="flex">
+  <div v-if='servers' class="flex max-h-screen">
     <ServerList :servers="servers" />
     <ChannelList :channels="channels" />
     <ChatContainer />

@@ -10,7 +10,7 @@ const changeServer = (name: string, id: string) => {
 </script>
 
 <template>
-  <div class="flex flex-col bg-dc-grey-800 w-[72px] px-2 mx-auto pt-2 content-center">
+  <div class="flex flex-col bg-dc-grey-800 w-[72px] px-2 pt-2 content-center">
     <div
       class="h-12 w-12 rounded-[50%] mb-2 overflow-hidden bg-dc-grey-text hover:bg-dc-blue-800 transition-all duration-150 hover:rounded-[33%] hover:cursor-pointer">
     </div>
