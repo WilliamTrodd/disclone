@@ -19,14 +19,16 @@ const setChannel = (name: string, id: string) => {
         {{ store.currentServer.name }}
       </div>
       <div class="pt-2">
-        <div v-for="channel in props.channels" :key="channel._id"
-          class="mx-2 px-2 py-[1px] leading-4 text-dc-grey-text rounded-[4px] hover:bg-dc-grey-100 hover:text-white hover:cursor-pointer"
-          @click="setChannel(channel.name, channel._id)">
-          <div class="flex py-[6px]">
-            <div class="mr-[6px] ">
-              <IconChannelHash />
+        <div v-for="channel in props.channels" :key="channel._id" @click="setChannel(channel.name, channel._id)">
+          <div
+            class="mx-2 px-2 py-[1px] leading-4 text-dc-grey-text rounded-[4px] hover:bg-dc-grey-100 hover:text-white hover:cursor-pointer"
+            :class="{ ['bg-dc-grey-100 text-white']: channel._id === store.currentChannel.id }">
+            <div class="flex py-[6px]">
+              <div class="mr-[6px] ">
+                <IconChannelHash />
+              </div>
+              {{ channel.name }}
             </div>
-            {{ channel.name }}
           </div>
         </div>
       </div>

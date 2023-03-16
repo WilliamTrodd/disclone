@@ -9,6 +9,7 @@ module.exports = {
       "dc-grey-100": "#424549",
       "dc-grey-text": "#989AA1",
       "dc-blue-800": "#7289da",
+      "dc-grey-text-200": "#949ba4",
       white: "#ffffff",
     },
     extend: {

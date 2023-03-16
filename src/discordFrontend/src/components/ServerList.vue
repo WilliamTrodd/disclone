@@ -19,8 +19,9 @@ const changeServer = (name: string, id: string) => {
     </svg>
 
     <div v-for="server in props.servers" :key="server._id"
-      class="inline-block h-12 w-12 rounded-[50%] mb-2 overflow-hidden bg-dc-blue-800 transition-all ease-in hover:rounded-[33%] duration-150"
-      @click="changeServer(server.name, server._id)">
+      class="inline-block h-12 w-12 mb-2 overflow-hidden bg-dc-blue-800 transition-all ease-in hover:rounded-[33%] duration-150 cursor-pointer"
+      @click="changeServer(server.name, server._id)"
+      :class="[server._id === store.currentServer.id ? 'rounded-[33%]' : 'rounded-[50%]']">
       <img :src="server.icon" />
     </div>
   </div>

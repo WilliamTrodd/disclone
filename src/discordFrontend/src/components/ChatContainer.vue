@@ -4,7 +4,7 @@ import { store } from '../store'
 import axios from 'axios'
 import MessageList from './MessageList.vue'
 import MessageInput from './MessageInput.vue'
-import ActiveUsers from './ActiveUsers.vue'
+import UserList from './UserList.vue'
 import ChatBanner from './ChatBanner.vue'
 
 interface User {
@@ -47,7 +47,7 @@ watch(store.currentChannel, () => {
         <MessageList :messages="messages" />
         <MessageInput />
       </div>
-      <ActiveUsers />
+      <UserList />
     </div>
   </div>
 </template>
