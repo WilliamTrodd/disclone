@@ -6,7 +6,6 @@ const messagesRouter = require('express').Router()
 
 messagesRouter.post('/', async (req, res) => {
   const { text, userId, channelId } = req.body
-  console.log(req.body)
   try {
     const message: Message = {
       text: text,
@@ -16,8 +15,8 @@ messagesRouter.post('/', async (req, res) => {
       _id: new ObjectId(),
     }
     const messages = await connectToMessages()
-    console.log(message)
     messages.insertOne(message)
+    res.json(message)
   } catch (e) {
     console.log(e)
   }

@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import { store } from '../store'
+import WS from '../services/ws'
 
 
 interface NewMessage {
@@ -19,15 +20,15 @@ const sendMessage = async (text: string) => {
     userId: store.loggedInUser
   }
   try {
-    const response = await axios.post(`http://localhost:3001/api/messages/`, message)
-    console.log(response)
+    const { data } = await axios.post(`http://localhost:3001/api/messages/`, message)
+    WS.send(JSON.stringify(data))
+    console.log(data)
   } catch (e) {
     console.log(e)
   }
 }
 
 const onSubmit = () => {
-  console.log(text.value)
   sendMessage(text.value)
   text.value = ''
 }

@@ -77,7 +77,6 @@ channelsRouter.get('/:id', async (req, res) => {
     const gotMessages = messages.aggregate(agg)
 
     const channelMessages = await gotMessages.toArray()
-    console.log(channelMessages)
     res.json(channelMessages)
   } catch (e) {
     console.log(e)

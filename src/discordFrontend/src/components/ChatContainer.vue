@@ -6,6 +6,7 @@ import MessageList from './MessageList.vue'
 import MessageInput from './MessageInput.vue'
 import UserList from './UserList.vue'
 import ChatBanner from './ChatBanner.vue'
+import WS from '../services/ws'
 
 interface User {
   _id: string
@@ -36,6 +37,11 @@ const getMessages = async () => {
 watch(store.currentChannel, () => {
   getMessages()
 })
+
+WS.onmessage = (event) => {
+  console.log('Message received')
+  getMessages()
+}
 
 </script>
 
