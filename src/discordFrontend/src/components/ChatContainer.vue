@@ -46,10 +46,10 @@ WS.onmessage = (event) => {
 </script>
 
 <template>
-  <div class="flex flex-col grow">
+  <div class="flex flex-col grow relative">
     <ChatBanner />
     <div class="flex flex-row grow overflow-auto">
-      <div class="flex flex-col grow ">
+      <div class="flex flex-col grow w">
         <MessageList :messages="messages" />
         <MessageInput />
       </div>

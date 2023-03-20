@@ -70,7 +70,7 @@ channelsRouter.get('/:id', async (req, res) => {
       },
       {
         $sort: {
-          timestamp: -1,
+          timestamp: 1,
         },
       },
     ]

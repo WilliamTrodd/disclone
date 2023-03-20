@@ -35,10 +35,10 @@ const onSubmit = () => {
 </script>
 
 <template>
-  <div class="h-24 bg-dc-grey-300 text-center px-2">
-    <form v-on:submit.prevent="() => onSubmit()">
+  <form v-on:submit.prevent="() => onSubmit()" class="bg-dc-grey-300 text-center px-4 relative shrink-0 -mt-2 leading-4">
+    <div class="mb-6 relative w-full">
       <input placeholder="Message here" v-model.trim="text"
-        class="-mt-2 p-2 min-w-full rounded-md bg-dc-grey-100 text-sm focus:outline-0 focus:shadow-none" />
-    </form>
-  </div>
+        class="-mt-2 py-[11px] px-2 min-w-full rounded-lg bg-dc-grey-100 text-sm focus:outline-0 focus:shadow-none" />
+    </div>
+  </form>
 </template>
