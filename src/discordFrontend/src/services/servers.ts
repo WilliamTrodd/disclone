@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { ref } from 'vue'
-const baseUrl = 'http://localhost:3001/api/servers';
+const apiUrl = import.meta.env.VITE_API_URL
 
 interface User {
   _id: string,
@@ -28,12 +28,11 @@ interface Server {
   channels: Channel[],
 }
 
-//TODO BASE_URL to env file
 const getServers = async () => {
   let servers: Server[] = []
   
   try {
-    const response = await axios.get('http://localhost:3001/api/servers')
+    const response = await axios.get(`${apiUrl}/servers`)
     servers = response.data
   } catch (e) {
     console.log(e)
@@ -46,7 +45,7 @@ const getChannels = async (serverId: string) => {
   let channels
 
   try {
-    const response = await axios.get(`http://localhost:3001/api/servers/${serverId}`)
+    const response = await axios.get(`${apiUrl}/servers/${serverId}`)
     console.log('Channels')
     console.log(response)
     channels = response.data.channels
@@ -61,7 +60,7 @@ const getMessages = async (serverId: string, channel: string) => {
   let messages
 
   try {
-    const response = await axios.get(`http://localhost:3001/api/servers/${serverId}/${channel}`)
+    const response = await axios.get(`${apiUrl}/servers/${serverId}/${channel}`)
     console.log(response)
     messages = response.data.messages
   } catch (e) {

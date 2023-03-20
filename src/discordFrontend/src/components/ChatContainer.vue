@@ -8,6 +8,8 @@ import UserList from './UserList.vue'
 import ChatBanner from './ChatBanner.vue'
 import WS from '../services/ws'
 
+const apiUrl = import.meta.env.VITE_API_URL
+
 interface User {
   _id: string
   memberOf: []
@@ -27,7 +29,7 @@ const messages = ref<Message[]>([])
 
 const getMessages = async () => {
   try {
-    const response = await axios.get(`http://localhost:3001/api/channels/${store.currentChannel.id}`)
+    const response = await axios.get(`${apiUrl}/channels/${store.currentChannel.id}`)
     messages.value = response.data
   } catch (e) {
     console.log(e)

@@ -6,6 +6,8 @@ import ChatContainer from '../components/ChatContainer.vue'
 import axios from "axios";
 import { store } from '../store'
 
+const apiUrl = import.meta.env.VITE_API_URL
+
 
 interface Server {
   name: string
@@ -24,7 +26,7 @@ const channels = ref<Channel[]>([])
 
 const getServers = async () => {
   try {
-    const { data } = await axios.get('http://localhost:3001/api/servers')
+    const { data } = await axios.get(`${apiUrl}/servers`)
     servers.value = data
     store.currentServer.name = servers.value[0].name
     store.currentServer.id = servers.value[0]._id
@@ -37,7 +39,7 @@ const getServers = async () => {
 
 const getChannels = async (serverId: string) => {
   try {
-    const { data } = await axios.get(`http://localhost:3001/api/servers/${serverId}`)
+    const { data } = await axios.get(`${apiUrl}/servers/${serverId}`)
     channels.value = data.channels
     store.currentChannel.id = channels.value[0]._id
     store.currentChannel.name = channels.value[0].name

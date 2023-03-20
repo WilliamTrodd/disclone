@@ -3,6 +3,8 @@ import axios from 'axios'
 import { ref } from 'vue'
 import { store } from '../store'
 import WS from '../services/ws'
+const apiUrl = import.meta.env.VITE_API_URL
+
 
 
 interface NewMessage {
@@ -20,7 +22,7 @@ const sendMessage = async (text: string) => {
     userId: store.loggedInUser
   }
   try {
-    const { data } = await axios.post(`http://localhost:3001/api/messages/`, message)
+    const { data } = await axios.post(`${apiUrl}/messages/`, message)
     WS.send(JSON.stringify(data))
     console.log(data)
   } catch (e) {
