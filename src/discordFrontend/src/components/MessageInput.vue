@@ -29,8 +29,10 @@ const sendMessage = async (text: string) => {
 }
 
 const onSubmit = () => {
-  sendMessage(text.value)
-  text.value = ''
+  if (text.value !== "") {
+    sendMessage(text.value)
+    text.value = ''
+  }
 }
 </script>
 
