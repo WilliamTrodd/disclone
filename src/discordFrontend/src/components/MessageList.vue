@@ -1,13 +1,23 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref } from 'vue'
+import { onBeforeMount, onMounted, onUpdated, ref } from 'vue'
 import Message from './Message.vue'
 //import WS from '../services/ws';
 
 const props = defineProps(['messages']);
 
+const scrollToLatest = () => {
+  const chatBottom = document.getElementById('chatBottom')
+  chatBottom?.scrollIntoView(false)
+}
+
 onMounted(() => {
+  scrollToLatest()
   console.log(props.messages)
 
+})
+
+onUpdated(() => {
+  scrollToLatest()
 })
 
 </script>
@@ -20,7 +30,7 @@ onMounted(() => {
           <div v-for="message in messages" :key="message._id" class="p-2 flex justify-between hover:bg-dc-grey-500">
             <Message :username="message.user.username" :text="message.text" :timestamp="message.timestamp" />
           </div>
-          <div class="h-[30px] w-[1px] block"></div>
+          <div id="chatBottom" class="h-[30px] w-[1px] block"></div>
         </ol>
       </div>
     </div>
