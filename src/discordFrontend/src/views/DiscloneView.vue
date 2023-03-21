@@ -5,6 +5,7 @@ import ChannelList from '../components/ChannelList.vue';
 import ChatContainer from '../components/ChatContainer.vue'
 import axios from "axios";
 import { store } from '../store'
+import { getServers, getChannels } from '../services/servers'
 
 const apiUrl = import.meta.env.VITE_API_URL
 
@@ -21,47 +22,16 @@ interface Channel {
 }
 
 const serversEmpty = ref(true)
-const servers = ref<Server[]>([]) //TODO types to a new file, and import and use here
+const servers = ref<Server[]>([])
 const channels = ref<Channel[]>([])
 
-const getServers = async () => {
-  try {
-    const { data } = await axios.get(`${apiUrl}/servers`)
-    servers.value = data
-    store.currentServer.name = servers.value[0].name
-    store.currentServer.id = servers.value[0]._id
-    console.log(servers.value)
-    serversEmpty.value = false
-  } catch (e) {
-    console.log(e)
-  }
-}
-
-const getChannels = async (serverId: string) => {
-  try {
-    const { data } = await axios.get(`${apiUrl}/servers/${serverId}`)
-    channels.value = data.channels
-    store.currentChannel.id = channels.value[0]._id
-    store.currentChannel.name = channels.value[0].name
-  } catch (e) {
-    console.log(e)
-  }
-}
-
-
-onBeforeMount(() => {
-  getServers()
-  getChannels(store.currentServer.id)
-})
-/*
-onMounted(() => {
-  getMessages(servers.value[0]._id, channels[0].name)
+onBeforeMount(async () => {
+  servers.value = await getServers()
+  channels.value = await getChannels(store.currentServer.id)
 })
 
-*/
-
-watch(store.currentServer, () => {
-  getChannels(store.currentServer.id)
+watch(store.currentServer, async () => {
+  channels.value = await getChannels(store.currentServer.id)
 })
 
 

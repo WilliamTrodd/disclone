@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ref } from 'vue'
+import { store } from '../store'
 const apiUrl = import.meta.env.VITE_API_URL
 
 interface User {
@@ -17,7 +18,7 @@ interface Message {
 interface Channel {
   _id: string,
   name: string,
-  messages: Message[]
+  serverId: string
 }
 
 interface Server {
@@ -28,32 +29,29 @@ interface Server {
   channels: Channel[],
 }
 
-const getServers = async () => {
-  let servers: Server[] = []
-  
+export const getServers = async () => {
   try {
-    const response = await axios.get(`${apiUrl}/servers`)
-    servers = response.data
+    const { data }: {data: Server[]} = await axios.get(`${apiUrl}/servers`)
+    store.currentServer.name = data[0].name
+    store.currentServer.id = data[0]._id
+    return data
   } catch (e) {
-    console.log(e)
+    console.error(e)
+    throw new Error('Error fetching servers')
   }
-
-  return servers
 }
 
-const getChannels = async (serverId: string) => {
-  let channels
-
+export const getChannels = async (serverId: string) => {
   try {
-    const response = await axios.get(`${apiUrl}/servers/${serverId}`)
-    console.log('Channels')
-    console.log(response)
-    channels = response.data.channels
+    const {data}: {data: Channel[]} = await axios.get(`${apiUrl}/channels/${serverId}`)
+    console.log(data)
+    store.currentChannel.id = data[0]._id
+    store.currentChannel.name = data[0].name
+    return data
   } catch (e) {
-    console.log(e)
+    console.error(e)
+    throw new Error('Error fetching channels')
   }
-
-  return channels
 }
 
 const getMessages = async (serverId: string, channel: string) => {
@@ -69,5 +67,3 @@ const getMessages = async (serverId: string, channel: string) => {
 
   return messages
 }
-
-export default { getServers, getChannels, getMessages };

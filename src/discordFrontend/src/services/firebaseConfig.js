@@ -1,9 +1,3 @@
-import { createApp } from "vue"
-import App from "./App.vue"
-import router from "./router"
-
-import "./style.css"
-
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 
@@ -15,14 +9,3 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_SENDER_ID,
   appId: import.meta.env.VITE_APP_FB_APP_ID,
 }
-
-initializeApp(firebaseConfig)
-
-
-const app = createApp(App)
-
-
-
-app.use(router)
-
-app.mount("#app");

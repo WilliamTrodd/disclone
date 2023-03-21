@@ -29,7 +29,8 @@ const messages = ref<Message[]>([])
 
 const getMessages = async () => {
   try {
-    const response = await axios.get(`${apiUrl}/channels/${store.currentChannel.id}`)
+    const response = await axios.get(`${apiUrl}/channels/${store.currentServer.id}/${store.currentChannel.id}`)
+    console.log(response.data)
     messages.value = response.data
   } catch (e) {
     console.log(e)

@@ -3,6 +3,7 @@ import { onBeforeMount, onMounted, onUpdated, ref } from 'vue'
 import Message from './Message.vue'
 //import WS from '../services/ws';
 
+//TODO: snap messages to bottom - currently if only a few messages they are at top
 const props = defineProps(['messages']);
 
 const scrollToLatest = () => {

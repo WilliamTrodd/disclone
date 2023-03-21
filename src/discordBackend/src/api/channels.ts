@@ -22,7 +22,8 @@ const connectToMessages = async () => {
   const messages = database.collection('messages')
   return messages
 }
-
+/*
+TODO maybe delete this
 const watchMessages = async () => {
   const client = await connectToCluster(uri)
   const messages = client.db('discordClone').collection('messages').watch()
@@ -33,7 +34,7 @@ const watchMessages = async () => {
 }
 
 watchMessages()
-
+*/
 // get all channels
 channelsRouter.get('/', async (req, res) => {
   try {
@@ -45,14 +46,33 @@ channelsRouter.get('/', async (req, res) => {
   }
 })
 
+channelsRouter.get('/:serverId', async (req, res) => {
+  try {
+    const channels = await connectToChannels()
+    const agg = [
+      {
+        $match: {
+          serverId: new ObjectId(req.params.serverId),
+        },
+      },
+    ]
+    const gotChannels = channels.aggregate(agg)
+
+    const allChannels = await gotChannels.toArray()
+    res.json(allChannels)
+  } catch (e) {
+    console.log(e)
+  }
+})
+
 // get messages for channel
-channelsRouter.get('/:id', async (req, res) => {
+channelsRouter.get('/:serverId/:channelId', async (req, res) => {
   try {
     const messages = await connectToMessages()
     const agg = [
       {
         $match: {
-          channelId: new ObjectId(req.params.id),
+          channelId: new ObjectId(req.params.channelId),
         },
       },
       {
