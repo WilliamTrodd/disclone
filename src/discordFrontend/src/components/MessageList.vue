@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onBeforeMount, onMounted, onUpdated, ref } from 'vue'
 import Message from './Message.vue'
-//import WS from '../services/ws';
 
 const props = defineProps(['messages']);
 

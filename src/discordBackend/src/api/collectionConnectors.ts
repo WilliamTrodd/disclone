@@ -24,3 +24,10 @@ export const connectToMessages = async () => {
   const messages = database.collection('messages')
   return messages
 }
+
+export const connectToUsers = async () => {
+  const client = await connectToCluster(uri)
+  const database = client.db('discordClone')
+  const users = database.collection('users')
+  return users
+}

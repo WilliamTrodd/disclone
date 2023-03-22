@@ -5,7 +5,9 @@ const apiUrl = import.meta.env.VITE_API_URL
 
 interface User {
   _id: string,
-  name: string,
+  username: string,
+  memberOf: string[]
+  profilePic: string
 }
 
 interface Message {
