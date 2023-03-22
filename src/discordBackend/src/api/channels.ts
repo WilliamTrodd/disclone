@@ -57,7 +57,6 @@ channelsRouter.get('/:serverId', async (req, res) => {
       },
     ]
     const gotChannels = channels.aggregate(agg)
-
     const allChannels = await gotChannels.toArray()
     res.json(allChannels)
   } catch (e) {
