@@ -29,3 +29,13 @@ export const findUser = async (userFbId: string) => {
     throw new Error('Error fetching logged in user')
   }
 }
+
+export const createUser = async (user: User) => {
+  try {
+    const {data}: {data: User} = await axios.post(`${apiUrl}/users`, user)
+    console.log(data)
+    return data
+  } catch (e) {
+    throw new Error('Error creating user')
+  }
+}
