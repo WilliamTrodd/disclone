@@ -22,25 +22,25 @@ import { store } from '../store'
                 <rect x="6.25" y="3.75" width="7.5" height="7.5" rx="3.75" ry="3.75" fill="black"></rect>
                 <polygon points="-2.16506,-2.5 2.16506,0 -2.16506,2.5" fill="black"
                   transform="scale(0) translate(13.125 10)" style="transform-origin: 13.125px 10px 0px;"></polygon>
-                                                                                                            <circle fill="black" cx="12.5" cy="10" r="0"></circle>
-                                                                                                          </mask>
-                                                                                                          <rect fill="#f0b232" width="25" height="15" mask="url(#:r2:)"></rect>
-                                                                                                          -->
+                                                                                                                          <circle fill="black" cx="12.5" cy="10" r="0"></circle>
+                                                                                                                        </mask>
+                                                                                                                        <rect fill="#f0b232" width="25" height="15" mask="url(#:r2:)"></rect>
+                                                                                                                        -->
             </svg>
             <rect x="22" y="22" width="10" height="10" fill="transparent" aria-hidden="true" class="pointerEvents-2KjWnj">
             </rect>
           </svg>
         </div>
-        <div class="pb-1 pl-2 pt-1 mr-1 grow">
+        <div class="pb-1 pl-2 pt-1 mr-1 grow max-w-[120px]">
           <!-- add actual logged-in user data -->
           <div class="text-sm leading-[18px] text-white">
             <div class="whitespace-nowrap text-ellipsis overflow-hidden font-semibold">
-              trodd
+              {{ store.loggedInUser.username }}
             </div>
           </div>
           <div
             class="whitespace-nowrap text-ellipsis overflow-hidden leading-[13px] text-[12px] font-normal text-dc-grey-text">
-            #1234
+            {{ store.loggedInUser.firebaseId }}
           </div>
         </div>
       </div>

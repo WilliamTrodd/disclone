@@ -19,7 +19,7 @@ const sendMessage = async (text: string) => {
   const message: NewMessage = {
     text: text,
     channelId: store.currentChannel.id,
-    userId: store.loggedInUser
+    userId: store.loggedInUser._id
   }
   try {
     const { data } = await axios.post(`${apiUrl}/messages/`, message)

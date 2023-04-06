@@ -5,7 +5,6 @@ import SignUp from "../components/SignUp.vue";
 
 <template>
   <main class="bg-dc-grey-300 min-h-screen max-h-screen">
-    <LoginView />
     <SignUp />
   </main>
 </template>

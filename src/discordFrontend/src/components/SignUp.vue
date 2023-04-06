@@ -12,7 +12,6 @@ const googleSignIn = () => {
       const token = credential?.accessToken
       const user = result.user
       console.log(auth.currentUser)
-      store.loggedInUser = auth.currentUser?.uid ? auth.currentUser?.uid : ''
     })
     .catch(e => {
       console.log(e)

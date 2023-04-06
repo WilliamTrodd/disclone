@@ -28,29 +28,32 @@ const channels = ref<Channel[]>([])
 
 onBeforeMount(async () => {
   const auth = getAuth()
-  //console.log(await auth.currentUser?.getIdToken())
   onAuthStateChanged(auth, async (user) => {
     if (user) {
-      console.log(user)
       store.loggedInUser = await findUser(user.uid)
       console.log(store.loggedInUser)
     } else {
       console.log('no user')
     }
   })
+})
+
+onBeforeMount(async () => {
   servers.value = await getServers()
+  console.log(servers.value)
   channels.value = await getChannels(store.currentServer.id)
   console.log(store.loggedInUser.username)
 })
 
 watch(store.currentServer, async () => {
   channels.value = await getChannels(store.currentServer.id)
+  console.log(channels.value)
 })
 </script>
 
 
 <template>
-  <div v-if='store.loggedInUser.username' class="min-h-screen flex">
+  <div v-if='!store.loggedInUser.username' class="min-h-screen flex">
     <div v-if='servers' class="flex grow">
       <ServerList :servers="servers" />
       <div class="flex flex-col">

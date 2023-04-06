@@ -37,6 +37,10 @@ const getMessages = async () => {
   }
 }
 
+onMounted(async () => {
+  getMessages()
+})
+
 watch(store.currentChannel, () => {
   getMessages()
 })

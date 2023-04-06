@@ -43,7 +43,6 @@ usersRouter.get('/user/:userId', async (req: Request, res: Response) => {
   try {
     const users = await connectToUsers()
     const loggedInUser = await users.findOne({ firebaseId: req.params.userId })
-    console.log(loggedInUser)
     res.json(loggedInUser)
   } catch (e) {
     console.log(e)
