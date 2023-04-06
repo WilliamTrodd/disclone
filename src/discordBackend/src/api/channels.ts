@@ -1,7 +1,7 @@
 import { connectToCluster } from '../mongoClient'
 import { config } from 'dotenv'
 import { ObjectId } from 'mongodb'
-import { Channel } from '../types'
+import { Request, Response } from 'express'
 
 const channelsRouter = require('express').Router()
 
@@ -36,7 +36,7 @@ const watchMessages = async () => {
 watchMessages()
 */
 // get all channels
-channelsRouter.get('/', async (req, res) => {
+channelsRouter.get('/', async (_req: Request, res: Response) => {
   try {
     const channels = await connectToChannels()
     const allChannels = await channels.find({}).toArray()
@@ -46,7 +46,7 @@ channelsRouter.get('/', async (req, res) => {
   }
 })
 
-channelsRouter.get('/:serverId', async (req, res) => {
+channelsRouter.get('/:serverId', async (req: Request, res: Response) => {
   try {
     const channels = await connectToChannels()
     const agg = [
@@ -65,7 +65,7 @@ channelsRouter.get('/:serverId', async (req, res) => {
 })
 
 // get messages for channel
-channelsRouter.get('/:serverId/:channelId', async (req, res) => {
+channelsRouter.get('/:serverId/:channelId', async (req: Request, res: Response) => {
   try {
     const messages = await connectToMessages()
     const agg = [

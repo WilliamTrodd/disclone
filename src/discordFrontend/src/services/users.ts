@@ -3,17 +3,29 @@ import {store} from '../store'
 const apiUrl = import.meta.env.VITE_API_URL
 
 interface User {
-  _id: string,
-  username: string,
+  _id: string
+  username: string
   memberOf: string[]
   profilePicture: string
+  firebaseId: string
 }
 
 export const getUsers = async () => {
   try {
-    const {data}: {data: User[]} = await axios.get(`${apiUrl}/users/${store.currentServer.id}`)
+    const {data}: {data: User[]} = await axios.get(`${apiUrl}/users/server/${store.currentServer.id}`)
+    console.log(data)
     return data
   } catch (e){
     throw new Error('Error fetching users')
+  }
+}
+
+export const findUser = async (userFbId: string) => {
+  try {
+    const {data}: {data: User} = await axios.get(`${apiUrl}/users/user/${userFbId}`)
+    console.log(data)
+    return data
+  } catch (e) {
+    throw new Error('Error fetching logged in user')
   }
 }

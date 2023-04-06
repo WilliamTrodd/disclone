@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
-
+import { store } from '../store'
 
 const googleSignIn = () => {
   let provider = new GoogleAuthProvider()
@@ -11,8 +11,8 @@ const googleSignIn = () => {
       const credential = GoogleAuthProvider.credentialFromResult(result)
       const token = credential?.accessToken
       const user = result.user
-      console.log(token)
-      console.log(user)
+      console.log(auth.currentUser)
+      store.loggedInUser = auth.currentUser?.uid ? auth.currentUser?.uid : ''
     })
     .catch(e => {
       console.log(e)

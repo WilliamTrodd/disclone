@@ -12,13 +12,14 @@ interface User {
 
 const users = ref<User[]>([])
 
-//const users = [{ name: 'Trodd', _id: '1' }, { name: 'name2', _id: '2' }]
+/*const users = [{ name: 'Trodd', _id: '1' }, { name: 'name2', _id: '2' }]
 
 onBeforeMount(async () => {
   users.value = await getUsers()
 })
-
+*/
 watch(store.currentServer, async () => {
+  console.log('fetching users')
   users.value = await getUsers()
 })
 

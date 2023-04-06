@@ -1,10 +1,11 @@
 import { connectToMessages } from './collectionConnectors'
 import { ObjectId } from 'mongodb'
 import { Message } from '../types'
+import { Request, Response } from 'express'
 
 const messagesRouter = require('express').Router()
 
-messagesRouter.post('/', async (req, res) => {
+messagesRouter.post('/', async (req: Request, res: Response) => {
   const { text, userId, channelId } = req.body
   try {
     const message: Message = {

@@ -1,4 +1,4 @@
-const express = require('express')
+import express from 'express'
 const usersRouter = require('./api/users')
 const channelsRouter = require('./api/channels')
 const serversRouter = require('./api/servers')

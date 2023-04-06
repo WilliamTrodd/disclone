@@ -2,13 +2,14 @@ import { connectToCluster } from '../mongoClient'
 import { config } from 'dotenv'
 import { ObjectId } from 'mongodb'
 import { connectToUsers } from './collectionConnectors'
+import { Request, Response } from 'express'
 
 const usersRouter = require('express').Router()
 
 config()
 const uri = process.env.MONGO_URI as string
-
-usersRouter.get('/', async (req, res) => {
+/*
+usersRouter.get('/', async (_req: Request, res: Response) => {
   try {
     const client = await connectToCluster(uri)
     const database = client.db('discordClone')
@@ -19,8 +20,8 @@ usersRouter.get('/', async (req, res) => {
     console.log(e)
   }
 })
-
-usersRouter.get('/:serverId', async (req, res) => {
+*/
+usersRouter.get('/server/:serverId', async (req: Request, res: Response) => {
   try {
     const users = await connectToUsers()
     const agg = [
@@ -33,6 +34,17 @@ usersRouter.get('/:serverId', async (req, res) => {
     const gotUsers = users.aggregate(agg)
     const allUsers = await gotUsers.toArray()
     res.json(allUsers)
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+usersRouter.get('/user/:userId', async (req: Request, res: Response) => {
+  try {
+    const users = await connectToUsers()
+    const loggedInUser = await users.findOne({ firebaseId: req.params.userId })
+    console.log(loggedInUser)
+    res.json(loggedInUser)
   } catch (e) {
     console.log(e)
   }

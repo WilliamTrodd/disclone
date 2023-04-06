@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "*",
+    "@types/ws": "^8.5.4",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",

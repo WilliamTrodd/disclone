@@ -12,8 +12,8 @@ const setChannel = (name: string, id: string) => {
 </script>
 
 <template>
-  <div class="flex">
-    <div class="flex-none flex-col bg-dc-grey-500 w-60 min-h-screen">
+  <div class="flex grow">
+    <div class="flex-none flex-col bg-dc-grey-500 w-60 grow">
       <div
         class="flex cursor-pointer shadow-1ch h-12 mb-2 px-4 py-3 bg-dc-grey-500 hover:bg-dc-grey-200 transition-colors duration-100 text-white">
         {{ store.currentServer.name }}

@@ -1,7 +1,7 @@
 import { connectToCluster } from '../mongoClient'
 import { config } from 'dotenv'
 import { ObjectId } from 'mongodb'
-import { Message } from '../types'
+import { Request, Response } from 'express'
 
 const serversRouter = require('express').Router()
 
@@ -16,7 +16,7 @@ const connectToServers = async () => {
 }
 
 // Get all servers
-serversRouter.get('/', async (_req, res) => {
+serversRouter.get('/', async (_req: Request, res: Response) => {
   try {
     const servers = await connectToServers()
     const allServers = await servers.find({}).toArray()
@@ -27,7 +27,7 @@ serversRouter.get('/', async (_req, res) => {
 })
 
 // Get server channels
-serversRouter.get('/:id', async (req, res) => {
+serversRouter.get('/:id', async (req: Request, res: Response) => {
   try {
     const servers = await connectToServers()
     const agg = [
