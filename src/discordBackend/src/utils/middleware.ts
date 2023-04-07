@@ -8,13 +8,13 @@ const decodeToken = async (req: Request, res: Response, next: NextFunction) => {
       const decodeValue = await firebaseAdmin.auth().verifyIdToken(token)
       if (decodeValue) {
         console.log(decodeValue)
-        return next()
       }
       return res.json({ message: 'Unauthorized' })
     } catch (e) {
       return res.json({ message: 'Internal Error' })
     }
   }
+  next()
   return res.json({ message: 'Unauthorized' })
 }
 

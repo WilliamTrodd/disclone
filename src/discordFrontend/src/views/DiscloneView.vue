@@ -10,8 +10,6 @@ import { findUser } from '../services/users'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import UserPanel from "../components/UserPanel.vue";
 
-
-
 interface Server {
   name: string
   _id: string
@@ -26,16 +24,17 @@ interface Channel {
 const servers = ref<Server[]>([])
 const channels = ref<Channel[]>([])
 
-onBeforeMount(async () => {
-  const auth = getAuth()
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      store.loggedInUser = await findUser(user.uid)
-      console.log(store.loggedInUser)
-    } else {
-      console.log('no user')
-    }
-  })
+const auth = getAuth()
+console.log('auth here')
+onAuthStateChanged(auth, async (user) => {
+  console.log('auth state changed', auth)
+  if (user) {
+    const loggedIn = await findUser(user.uid)
+    store.loggedInUser = loggedIn
+    console.log(store.loggedInUser)
+  } else {
+    console.log('no user')
+  }
 })
 
 onBeforeMount(async () => {
@@ -53,7 +52,7 @@ watch(store.currentServer, async () => {
 
 
 <template>
-  <div v-if='!store.loggedInUser.username' class="min-h-screen flex">
+  <div v-if='store.loggedInUser.username' class="min-h-screen flex">
     <div v-if='servers' class="flex grow">
       <ServerList :servers="servers" />
       <div class="flex flex-col">

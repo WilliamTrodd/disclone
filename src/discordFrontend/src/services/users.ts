@@ -10,6 +10,13 @@ interface User {
   firebaseId: string
 }
 
+interface NewUser {
+  username: string
+  memberOf: string[]
+  profilePicture: string
+  firebaseId: string
+}
+
 export const getUsers = async () => {
   console.log(store.currentServer.id)
   try {
@@ -31,7 +38,7 @@ export const findUser = async (userFbId: string) => {
   }
 }
 
-export const createUser = async (user: User) => {
+export const createUser = async (user: NewUser) => {
   try {
     const {data}: {data: User} = await axios.post(`${apiUrl}/users`, user)
     console.log(data)

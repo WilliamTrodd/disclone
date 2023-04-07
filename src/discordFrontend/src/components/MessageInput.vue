@@ -3,6 +3,7 @@ import axios from 'axios'
 import { ref } from 'vue'
 import { store } from '../store'
 import WS from '../services/ws'
+import messageService from '../services/messages'
 const apiUrl = import.meta.env.VITE_API_URL
 
 
@@ -22,7 +23,7 @@ const sendMessage = async (text: string) => {
     userId: store.loggedInUser._id
   }
   try {
-    const { data } = await axios.post(`${apiUrl}/messages/`, message)
+    const data = messageService.create(message)
     WS.send(JSON.stringify(data))
     console.log(data)
   } catch (e) {

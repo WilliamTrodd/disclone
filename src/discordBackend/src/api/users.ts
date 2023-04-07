@@ -49,4 +49,15 @@ usersRouter.get('/user/:userId', async (req: Request, res: Response) => {
   }
 })
 
+usersRouter.post('/', async (req: Request, res: Response) => {
+  try {
+    const users = await connectToUsers()
+    const newUser = req.body
+    const result = await users.insertOne(newUser)
+    res.json(result)
+  } catch (e) {
+    console.log(e)
+  }
+})
+
 module.exports = usersRouter
