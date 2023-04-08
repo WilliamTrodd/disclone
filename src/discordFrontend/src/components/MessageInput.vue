@@ -23,7 +23,7 @@ const sendMessage = async (text: string) => {
     userId: store.loggedInUser._id
   }
   try {
-    const data = messageService.create(message)
+    const data = await messageService.create(message)
     WS.send(JSON.stringify(data))
   } catch (e) {
     console.log(e)
