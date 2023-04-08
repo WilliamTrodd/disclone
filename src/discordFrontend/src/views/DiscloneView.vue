@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, onUpdated, ref, watch } from "vue";
-import ServerList from '../components/ServerList.vue';
-import ChannelList from '../components/ChannelList.vue';
+import { onBeforeMount, onMounted, onUpdated, ref, watch } from "vue"
+import ServerList from '../components/ServerList.vue'
+import ChannelList from '../components/ChannelList.vue'
 import ChatContainer from '../components/ChatContainer.vue'
 import SignUp from '../components/SignUp.vue';
 import { store } from '../store'
 import { getServers, getChannels } from '../services/servers'
 import { findUser } from '../services/users'
+import { createUser } from "../services/users"
+import messageService from "../services/messages"
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import UserPanel from "../components/UserPanel.vue";
+import UserPanel from "../components/UserPanel.vue"
 
 interface Server {
   name: string
@@ -30,6 +32,8 @@ onAuthStateChanged(auth, async (user) => {
   console.log('auth state changed', auth)
   if (user) {
     const loggedIn = await findUser(user.uid)
+    const userToken = await user.getIdToken()
+    messageService.setToken(userToken)
     store.loggedInUser = loggedIn
     console.log(store.loggedInUser)
   } else {
