@@ -11,8 +11,6 @@ const scrollToLatest = () => {
 
 onMounted(() => {
   scrollToLatest()
-  console.log(props.messages)
-
 })
 
 onUpdated(() => {

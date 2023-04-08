@@ -46,7 +46,6 @@ export const getServers = async () => {
 export const getChannels = async (serverId: string) => {
   try {
     const {data}: {data: Channel[]} = await axios.get(`${apiUrl}/channels/${serverId}`)
-    console.log(data)
     store.currentChannel.id = data[0]._id
     store.currentChannel.name = data[0].name
     return data
@@ -61,7 +60,6 @@ const getMessages = async (serverId: string, channel: string) => {
 
   try {
     const response = await axios.get(`${apiUrl}/servers/${serverId}/${channel}`)
-    console.log(response)
     messages = response.data.messages
   } catch (e) {
     console.log(e)

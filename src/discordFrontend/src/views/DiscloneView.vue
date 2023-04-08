@@ -7,7 +7,6 @@ import SignUp from '../components/SignUp.vue';
 import { store } from '../store'
 import { getServers, getChannels } from '../services/servers'
 import { findUser } from '../services/users'
-import { createUser } from "../services/users"
 import messageService from "../services/messages"
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import UserPanel from "../components/UserPanel.vue"
@@ -27,15 +26,12 @@ const servers = ref<Server[]>([])
 const channels = ref<Channel[]>([])
 
 const auth = getAuth()
-console.log('auth here')
 onAuthStateChanged(auth, async (user) => {
-  console.log('auth state changed', auth)
   if (user) {
     const loggedIn = await findUser(user.uid)
     const userToken = await user.getIdToken()
     messageService.setToken(userToken)
     store.loggedInUser = loggedIn
-    console.log(store.loggedInUser)
   } else {
     console.log('no user')
   }
@@ -43,14 +39,11 @@ onAuthStateChanged(auth, async (user) => {
 
 onBeforeMount(async () => {
   servers.value = await getServers()
-  console.log(servers.value)
   channels.value = await getChannels(store.currentServer.id)
-  console.log(store.loggedInUser.username)
 })
 
 watch(store.currentServer, async () => {
   channels.value = await getChannels(store.currentServer.id)
-  console.log(channels.value)
 })
 </script>
 

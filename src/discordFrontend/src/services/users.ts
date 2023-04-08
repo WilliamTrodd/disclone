@@ -18,9 +18,7 @@ interface NewUser {
 }
 
 export const getUsers = async () => {
-  console.log(store.currentServer.id)
   try {
-    console.log(store.currentServer.id)
     const {data}: {data: User[]} = await axios.get(`${apiUrl}/users/server/${store.currentServer.id}`)
     return data
   } catch (e){
@@ -31,7 +29,6 @@ export const getUsers = async () => {
 export const findUser = async (userFbId: string) => {
   try {
     const {data}: {data: User} = await axios.get(`${apiUrl}/users/user/${userFbId}`)
-    console.log(data)
     return data
   } catch (e) {
     throw new Error('Error fetching logged in user')
@@ -41,7 +38,6 @@ export const findUser = async (userFbId: string) => {
 export const createUser = async (user: NewUser) => {
   try {
     const {data}: {data: User} = await axios.post(`${apiUrl}/users`, user)
-    console.log(data)
     return data
   } catch (e) {
     throw new Error('Error creating user')
