@@ -7,6 +7,7 @@ import { decodeToken } from '../utils/middleware'
 const messagesRouter = require('express').Router()
 
 messagesRouter.post('/', decodeToken, async (req: Request, res: Response) => {
+  console.log('POST /messages')
   console.log(req.headers)
   const { text, userId, channelId } = req.body
   try {

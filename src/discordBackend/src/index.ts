@@ -16,11 +16,6 @@ wss.on('connection', function connection(ws: any) {
         client.send(data, { binary: isBinary })
       }
     })
-    /*
-    const message = isBinary ? data : data.toString()
-    console.log(message)
-    ws.send(message)
-    */
   })
 })
 

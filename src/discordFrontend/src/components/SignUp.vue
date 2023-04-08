@@ -24,8 +24,8 @@ const googleSignIn = () => {
       const additional = getAdditionalUserInfo(result)
       if (additional?.isNewUser && user) {
         const newUser: User = {
-          username: user.email ? user.email : '',
-          memberOf: [],
+          username: user.email ? user.email.split('@')[0] : 'defaultName',
+          memberOf: ['63f87660663ff1ba522c6f6f', '6404cd0c7ab148abe1a08d62'],
           profilePicture: '',
           firebaseId: user.uid,
         }
