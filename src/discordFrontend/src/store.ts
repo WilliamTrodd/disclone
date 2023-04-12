@@ -9,6 +9,7 @@ interface Message {
 export const store = reactive({
   currentServer: {id: '', name: '' },
   currentChannel: {id: '', name:''},
+  selectedUserId: '',
   messages: [],
   loggedInUser: {
     _id: '',

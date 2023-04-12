@@ -16,10 +16,13 @@ onBeforeMount(async () => {
   users.value = await getUsers()
 })
 
-
 watch(store.currentServer, async () => {
   users.value = await getUsers()
 })
+
+const userClickHandler = (userId: string) => {
+  store.selectedUserId = userId
+}
 
 </script>
 
@@ -29,7 +32,8 @@ watch(store.currentServer, async () => {
       <h3 class="pt-6 pl-4 pr-2 text-xs leading-4 h-10 uppercase">
         Online
       </h3>
-      <div v-for="user in users" :key="user._id" class="relative max-w-[224px] ml-2 py-[1px]">
+      <div v-for="user in users" :key="user._id" class="relative max-w-[224px] ml-2 py-[1px]"
+        @click.stop="() => userClickHandler(user._id)">
         <div class="flex items-center rounded-[4px] h-[42px] px-2 hover:bg-dc-grey-100 cursor-pointer">
           <div class="rounded-full">
             <div class="flex justify-center w-8 h-8 mr-3">

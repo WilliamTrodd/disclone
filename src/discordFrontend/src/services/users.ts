@@ -28,7 +28,7 @@ export const getUsers = async () => {
 
 export const findUser = async (userFbId: string) => {
   try {
-    const {data}: {data: User} = await axios.get(`${apiUrl}/users/user/${userFbId}`)
+    const {data}: {data: User} = await axios.get(`${apiUrl}/users/loggedIn/${userFbId}`)
     return data
   } catch (e) {
     throw new Error('Error fetching logged in user')
@@ -41,5 +41,14 @@ export const createUser = async (user: NewUser) => {
     return data
   } catch (e) {
     throw new Error('Error creating user')
+  }
+}
+
+export const getUserDetails = async (userId: string) => {
+  try {
+    const {data}: {data: User} = await axios.get(`${apiUrl}/users/${userId}`)
+    return data
+  } catch (e) {
+    throw new Error('Error fetching user details')
   }
 }

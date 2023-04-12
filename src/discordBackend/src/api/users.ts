@@ -39,11 +39,21 @@ usersRouter.get('/server/:serverId', async (req: Request, res: Response) => {
   }
 })
 
-usersRouter.get('/user/:userId', async (req: Request, res: Response) => {
+usersRouter.get('/loggedIn/:userId', async (req: Request, res: Response) => {
   try {
     const users = await connectToUsers()
     const loggedInUser = await users.findOne({ firebaseId: req.params.userId })
     res.json(loggedInUser)
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+usersRouter.get('/:userId', async (req: Request, res: Response) => {
+  try {
+    const users = await connectToUsers()
+    const user = await users.findOne({ _id: new ObjectId(req.params.userId) })
+    res.json(user)
   } catch (e) {
     console.log(e)
   }

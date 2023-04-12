@@ -10,6 +10,7 @@ import { findUser } from '../services/users'
 import messageService from "../services/messages"
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import UserPanel from "../components/UserPanel.vue"
+import UserDetails from "../components/UserDetails.vue";
 
 interface Server {
   name: string
@@ -45,11 +46,19 @@ onBeforeMount(async () => {
 watch(store.currentServer, async () => {
   channels.value = await getChannels(store.currentServer.id)
 })
+
+const modalCloser = () => {
+  if (store.selectedUserId !== '') {
+    store.selectedUserId = ''
+  }
+}
+
 </script>
 
 
 <template>
-  <div v-if='store.loggedInUser.username' class="min-h-screen flex">
+  <div v-if='store.loggedInUser.username' class="min-h-screen flex" @click="modalCloser">
+    <UserDetails />
     <div v-if='servers' class="flex grow">
       <ServerList :servers="servers" />
       <div class="flex flex-col">
