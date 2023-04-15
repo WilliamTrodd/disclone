@@ -5,8 +5,6 @@ const decodeToken = async (req: Request, res: Response, next: NextFunction) => {
   if (req.headers.authorization) {
     const token = req.headers.authorization.split(' ')[1]
     try {
-      console.log('token')
-      console.log(token)
       const { uid } = await getAuth().verifyIdToken(token)
       if (uid) {
         console.log(uid)

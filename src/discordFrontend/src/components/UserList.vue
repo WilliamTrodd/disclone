@@ -2,6 +2,7 @@
 import { onBeforeMount, onMounted, ref, watch } from 'vue'
 import { store } from '../store'
 import { getUsers } from '../services/users'
+import WS from '../services/ws';
 
 interface User {
   _id: string
@@ -19,7 +20,13 @@ onBeforeMount(async () => {
 watch(store.currentServer, async () => {
   users.value = await getUsers()
 })
-
+/*
+WS.onmessage = async (event) => {
+  TODO implement this so that users are updated when a user changes their display name
+  console.log('message received')
+  users.value = await getUsers()
+}
+*/
 const userClickHandler = (userId: string) => {
   store.settingsModal = false
   store.selectedUserId = userId

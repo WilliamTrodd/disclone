@@ -53,9 +53,9 @@ watch(store.currentChannel, () => {
   getMessages()
 })
 
-WS.onmessage = (event) => {
-  console.log('Message received')
-  getMessages()
+WS.onmessage = async (event) => {
+  console.log('message received')
+  await getMessages()
 }
 
 </script>

@@ -6,8 +6,6 @@ import WS from '../services/ws'
 import messageService from '../services/messages'
 const apiUrl = import.meta.env.VITE_API_URL
 
-
-
 interface NewMessage {
   text: string
   channelId: string
@@ -24,6 +22,7 @@ const sendMessage = async (text: string) => {
   }
   try {
     const data = await messageService.create(message)
+    console.log(data)
     WS.send(JSON.stringify(data))
   } catch (e) {
     console.log(e)
