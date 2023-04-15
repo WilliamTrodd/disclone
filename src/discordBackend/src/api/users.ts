@@ -70,4 +70,19 @@ usersRouter.post('/', async (req: Request, res: Response) => {
   }
 })
 
+usersRouter.put('/username/:userId', async (req: Request, res: Response) => {
+  try {
+    const users = await connectToUsers()
+    const updatedUser = req.body
+    const newName = updatedUser.username
+    const result = await users.updateOne(
+      { _id: new ObjectId(req.params.userId) },
+      { $set: { username: newName } }
+    )
+    res.json(result)
+  } catch (e) {
+    console.log(e)
+  }
+})
+
 module.exports = usersRouter

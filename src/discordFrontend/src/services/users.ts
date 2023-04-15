@@ -52,3 +52,12 @@ export const getUserDetails = async (userId: string) => {
     throw new Error('Error fetching user details')
   }
 }
+
+export const updateUsername = async (user: User) => {
+  try {
+    const {data}: {data: User} = await axios.put(`${apiUrl}/users/username/${user._id}`, user)
+    return data
+  } catch (e) {
+    throw new Error('Error updating user')
+  }
+}

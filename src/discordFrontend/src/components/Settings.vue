@@ -2,6 +2,7 @@
 import { getAuth, signOut } from 'firebase/auth';
 import { store } from '../store'
 import { onMounted, ref } from 'vue';
+import { updateUsername } from '../services/users'
 
 //going to implement user detail changing here (e.g. change username, change profile picture, etc.)
 
@@ -24,7 +25,8 @@ const signOutUser = () => {
 const setDisplayName = (newName: string) => {
   store.loggedInUser.username = newName
   displayName.value = newName
-  // TODO: update user in database
+  updateUsername(store.loggedInUser)
+
 }
 
 const displayName = ref('')
