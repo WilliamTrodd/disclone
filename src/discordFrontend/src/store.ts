@@ -17,7 +17,8 @@ export const store = reactive({
     username: '',
     profilePicture: '',
     memberOf: ['']
-  }
+  },
+  settingsModal: false
 })
 
 /*

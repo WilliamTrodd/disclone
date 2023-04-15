@@ -15,7 +15,7 @@ module.exports = {
         "dc-grey-text": "#989AA1",
         "dc-blue-800": "#7289da",
         "dc-grey-text-200": "#949ba4",
-        white: "#ffffff",
+        "dc-blue-100": '#5865f2'
       }
     },
   },

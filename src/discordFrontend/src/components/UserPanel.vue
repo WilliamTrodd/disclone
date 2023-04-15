@@ -1,38 +1,44 @@
 <script setup lang="ts">
 import { store } from '../store'
+
+const settings = () => {
+  store.settingsModal = !store.settingsModal
+  store.selectedUserId = ''
+  console.log(store.settingsModal)
+}
+
 </script>
 
 <template>
-  <section class="shrink-0 grow-0 bg-dc-grey-700">
+  <section class="shrink-0 grow-0 w-60 bg-dc-grey-700">
     <div class="flex h-[52px] font-medium text-sm px-2 mb-[1px] items-center">
       <div id="avatarWrapper" class="flex items-center min-w-[120px] -m-l-[2px] pl-[2px] mr-2">
-        <div class="w-[32px] h-[32px] cursor-pointer shrink-0 relative rounded-[50%]">
-          <svg width="40" height="40" viewBox="0 0 40 40" class="mask-1y0tyc svg-1G_H_8" aria-hidden="true">
-            <mask id=":r1:" width="32" height="32">
-              <circle cx="16" cy="16" r="16" fill="white"></circle>
-              <!-- rect color="black" x="19" y="19" width="16" height="16" rx="8" ry="8"></rect-->
-            </mask>
-            <foreignObject x="0" y="0" width="32" height="32" mask="url(#:r1:)">
+      <div class="w-[32px] h-[32px] cursor-pointer shrink-0 relative rounded-[50%]">
+        <svg width="40" height="40" viewBox="0 0 40 40" class="mask-1y0tyc svg-1G_H_8" aria-hidden="true">
+          <mask id=":r1:" width="32" height="32">
+            <circle cx="16" cy="16" r="16" fill="white"></circle>
+            <!-- rect color="black" x="19" y="19" width="16" height="16" rx="8" ry="8"></rect-->
+          </mask>
+          <foreignObject x="0" y="0" width="32" height="32" mask="url(#:r1:)">
             <div class="avatarStack-3Bjmsl"><img src="../assets/defaultDiscordAvatar.png" alt=" " class="avatar-31d8He"
                 aria-hidden="true"></div>
-          </foreignObject><svg x="14.5" y="17" width="25" height="15" viewBox="0 0 25 15">
-            <!-- 
-              <mask id=":r2:">
-                <rect x="7.5" y="5" width="10" height="10" rx="5" ry="5" fill="white"></rect>
-                <rect x="6.25" y="3.75" width="7.5" height="7.5" rx="3.75" ry="3.75" fill="black"></rect>
-                <polygon points="-2.16506,-2.5 2.16506,0 -2.16506,2.5" fill="black"
-                  transform="scale(0) translate(13.125 10)" style="transform-origin: 13.125px 10px 0px;"></polygon>
-                                                                                                                          <circle fill="black" cx="12.5" cy="10" r="0"></circle>
-                                                                                                                        </mask>
-                                                                                                                        <rect fill="#f0b232" width="25" height="15" mask="url(#:r2:)"></rect>
-                                                                                                                        -->
+            </foreignObject><svg x="14.5" y="17" width="25" height="15" viewBox="0 0 25 15">
+              <!-- 
+                            <mask id=":r2:">
+                              <rect x="7.5" y="5" width="10" height="10" rx="5" ry="5" fill="white"></rect>
+                              <rect x="6.25" y="3.75" width="7.5" height="7.5" rx="3.75" ry="3.75" fill="black"></rect>
+                              <polygon points="-2.16506,-2.5 2.16506,0 -2.16506,2.5" fill="black"
+                                transform="scale(0) translate(13.125 10)" style="transform-origin: 13.125px 10px 0px;"></polygon>
+                                                                                                                                                  <circle fill="black" cx="12.5" cy="10" r="0"></circle>
+                                                                                                                                                </mask>
+                                                                                                                                                <rect fill="#f0b232" width="25" height="15" mask="url(#:r2:)"></rect>
+                                                                                                                                                -->
             </svg>
             <rect x="22" y="22" width="10" height="10" fill="transparent" aria-hidden="true" class="pointerEvents-2KjWnj">
             </rect>
           </svg>
         </div>
         <div class="pb-1 pl-2 pt-1 mr-1 grow max-w-[120px]">
-          <!-- add actual logged-in user data -->
           <div class="text-sm leading-[18px] text-white">
             <div class="whitespace-nowrap text-ellipsis overflow-hidden font-semibold">
               {{ store.loggedInUser.username }}
@@ -40,7 +46,7 @@ import { store } from '../store'
           </div>
           <div
             class="whitespace-nowrap text-ellipsis overflow-hidden leading-[13px] text-[12px] font-normal text-dc-grey-text">
-            {{ store.loggedInUser.firebaseId }}
+            {{ store.loggedInUser.firebaseId.substring(0, 4) }}
           </div>
         </div>
       </div>
@@ -72,7 +78,8 @@ import { store } from '../store'
               </svg></svg>
           </div>
         </button>
-        <button class="cursor-pointer w-8 h-8 flex items-center justify-center rounded-[4px] hover:bg-dc-grey-100">
+        <button class="cursor-pointer w-8 h-8 flex items-center justify-center rounded-[4px] hover:bg-dc-grey-100"
+          @click.stop="settings">
           <div>
             <svg aria-hidden="true" role="img" width="20" height="20" viewBox="0 0 24 24">
               <path fill="#b5bac1" fill-rule="evenodd" clip-rule="evenodd"

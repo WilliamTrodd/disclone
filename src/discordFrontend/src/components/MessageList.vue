@@ -23,10 +23,9 @@ onUpdated(() => {
 
 <template>
   <div class="relative flex grow shrink basis-auto min-h-0 min-w-0 z-0">
-    <div class="absolute top-0 bottom-0 left-0 right-0 overflow-y-scroll overscroll-none">
+    <div class="absolute bg-dc-grey-200 top-0 bottom-0 left-0 right-0 overflow-y-scroll overflow-hidden overscroll-none">
       <div class=" flex relative min-h-full items-stretch justify-end">
-        <ol
-          class="bg-dc-grey-300 text-white flex grow flex-col overflow-y-scroll overflow-hidden relative leading-4 justify-end">
+        <ol class="bg-dc-grey-300 text-white flex grow flex-col overflow-hidden relative leading-4 justify-end">
           <div v-for="message in messages" :key="message._id" class="p-2 flex justify-between hover:bg-dc-grey-500">
             <Message :username="message.user.username" :text="message.text" :timestamp="message.timestamp" />
           </div>

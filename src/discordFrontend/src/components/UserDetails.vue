@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { getUserDetails } from '../services/users'
 import { store } from '../store'
 
@@ -13,11 +13,6 @@ interface User {
 }
 
 const user = ref<User>({} as User);
-/*
-onMounted(async () => {
-  //user.value = await getUserDetails(store.selectedUserId);
-  hover.value = true
-});*/
 
 watch(() => store.selectedUserId, async () => {
   if (store.selectedUserId !== '') {
@@ -81,14 +76,13 @@ watch(() => store.selectedUserId, async () => {
                   {{ user.username }}
                 </h1>
                 <div class="leading-[18px] text-sm font-medium">
-                  <!-- TODO userid here -->
                   <span class="text-dc-grey-text">{{ user._id?.substring(0, 4) }}</span>
                   <span class="text-dc-grey-text">#{{ user._id?.substring(4, 9) }}</span>
                 </div>
               </div>
             </div>
             <div class="mt-3 mx-3 h-[1px] sticky top-0 bg-dc-grey-100"></div>
-            <div id="userProfileScroller" class="overflow-scroll px-3 grow-0 shrink basis-auto">
+            <div id="userProfileScroller" class="overflow-auto px-3 grow-0 shrink basis-auto">
               <div class="pt-3">
                 <h2 class="flex font-bold mb-[6px] text-white text-xs uppercase">
                   Member Since

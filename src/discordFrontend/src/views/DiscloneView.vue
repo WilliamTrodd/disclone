@@ -11,6 +11,7 @@ import messageService from "../services/messages"
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import UserPanel from "../components/UserPanel.vue"
 import UserDetails from "../components/UserDetails.vue";
+import Settings from "../components/Settings.vue";
 
 interface Server {
   name: string
@@ -51,6 +52,9 @@ const modalCloser = () => {
   if (store.selectedUserId !== '') {
     store.selectedUserId = ''
   }
+  if (store.settingsModal === true) {
+    store.settingsModal = false
+  }
 }
 
 </script>
@@ -59,6 +63,7 @@ const modalCloser = () => {
 <template>
   <div v-if='store.loggedInUser.username' class="min-h-screen flex" @click="modalCloser">
     <UserDetails />
+    <Settings />
     <div v-if='servers' class="flex grow">
       <ServerList :servers="servers" />
       <div class="flex flex-col">

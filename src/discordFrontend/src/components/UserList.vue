@@ -21,6 +21,7 @@ watch(store.currentServer, async () => {
 })
 
 const userClickHandler = (userId: string) => {
+  store.settingsModal = false
   store.selectedUserId = userId
 }
 
