@@ -22,19 +22,7 @@ const connectToMessages = async () => {
   const messages = database.collection('messages')
   return messages
 }
-/*
-TODO maybe delete this
-const watchMessages = async () => {
-  const client = await connectToCluster(uri)
-  const messages = client.db('discordClone').collection('messages').watch()
-  messages.on('change', (next) => {
-    console.log(next)
-  })
-  messages.close()
-}
 
-watchMessages()
-*/
 // get all channels
 channelsRouter.get('/', async (_req: Request, res: Response) => {
   try {

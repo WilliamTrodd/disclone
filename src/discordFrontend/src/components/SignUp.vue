@@ -41,6 +41,7 @@ const googleSignIn = () => {
 
 <template>
   <div>
+    <!-- TODO: Make this look nice-->
     <button @click="googleSignIn">
       Sign In with Google
     </button>
