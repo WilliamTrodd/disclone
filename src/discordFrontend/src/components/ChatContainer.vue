@@ -48,6 +48,8 @@ onMounted(() => {
 })
 
 watch(store.currentChannel, () => {
+  store.messages = []
+  store.messagePage = 1
   messageService.getMessages()
 })
 /*

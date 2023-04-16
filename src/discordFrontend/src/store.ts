@@ -28,6 +28,7 @@ export const store = reactive({
   },
   settingsModal: false,
   users: [] as User[],
+  messagePage: 1,
 })
 
 /*

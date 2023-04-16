@@ -63,6 +63,7 @@ usersRouter.post('/', async (req: Request, res: Response) => {
   try {
     const users = await connectToUsers()
     const newUser = req.body
+    newUser.memberOf = newUser.memberOf.map((server: string) => new ObjectId(server))
     const result = await users.insertOne(newUser)
     res.json(result)
   } catch (e) {

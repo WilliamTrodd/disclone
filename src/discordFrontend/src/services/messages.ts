@@ -24,17 +24,16 @@ const create = async (newMessage: NewMessage) => {
 
 const getMessages = async () => {
   try {
-    const response = await axios.get(
-      `${baseUrl}/channels/${store.currentServer.id}/${store.currentChannel.id}`,
-      {
-        headers: {
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache',
-          'Expires': '0',
-        },
-      }
-    )
-    store.messages = response.data
+    const pagedData = await axios.get(`${baseUrl}/channels/${store.currentServer.id}/${store.currentChannel.id}/${store.messagePage}`,
+    {
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      },
+    })
+    store.messages = [...pagedData.data.messages.data, ...store.messages]
+    console.log(store.messages)
   } catch (e) {
     console.log(e)
   }

@@ -1,6 +1,6 @@
 import { connectToCluster } from '../mongoClient'
 import { config } from 'dotenv'
-import { ObjectId } from 'mongodb'
+import { AggregationCursor, ObjectId } from 'mongodb'
 import { Request, Response } from 'express'
 
 const channelsRouter = require('express').Router()
@@ -90,4 +90,40 @@ channelsRouter.get('/:serverId/:channelId', async (req: Request, res: Response) 
   }
 })
 
+channelsRouter.get('/:serverId/:channelId/:page', async (req: Request, res: Response) => {
+  try {
+    const pageAsInt = parseInt(req.params.page) || 1
+    const pageSizeAsInt = 50
+
+    const messages = await connectToMessages()
+    const gotMessages = messages.aggregate([
+      {
+        $facet: {
+          metadata: [{ $count: 'totalCount' }],
+          data: [
+            { $match: { channelId: new ObjectId(req.params.channelId) } },
+            { $sort: { timestamp: -1 } },
+            { $skip: (pageAsInt - 1) * pageSizeAsInt },
+            { $limit: pageSizeAsInt },
+            { $lookup: { from: 'users', localField: 'userId', foreignField: '_id', as: 'user' } },
+            { $unwind: { path: '$user' } },
+            { $sort: { timestamp: 1 } },
+          ],
+        },
+      },
+    ])
+
+    const channelMessages = await gotMessages.toArray()
+
+    return res.status(200).json({
+      success: true,
+      messages: {
+        metadata: { totalCount: channelMessages[0].metadata[0].total, pageAsInt, pageSizeAsInt },
+        data: channelMessages[0].data,
+      },
+    })
+  } catch (e) {
+    return res.status(500).json({ success: false })
+  }
+})
 module.exports = channelsRouter
