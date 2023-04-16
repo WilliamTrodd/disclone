@@ -11,14 +11,12 @@ interface User {
   memberOf: string[]
 }
 
-const users = ref<User[]>([])
-
-onBeforeMount(async () => {
-  users.value = await getUsers()
+onBeforeMount(() => {
+  getUsers()
 })
 
-watch(store.currentServer, async () => {
-  users.value = await getUsers()
+watch(store.currentServer, () => {
+  getUsers()
 })
 /*
 WS.onmessage = async (event) => {
@@ -40,7 +38,7 @@ const userClickHandler = (userId: string) => {
       <h3 class="pt-6 pl-4 pr-2 text-xs leading-4 h-10 uppercase">
         Online
       </h3>
-      <div v-for="user in users" :key="user._id" class="relative max-w-[224px] ml-2 py-[1px]"
+      <div v-for="user in store.users" :key="user._id" class="relative max-w-[224px] ml-2 py-[1px]"
         @click.stop="() => userClickHandler(user._id)">
         <div class="flex items-center rounded-[4px] h-[42px] px-2 hover:bg-dc-grey-100 cursor-pointer">
           <div class="rounded-full">

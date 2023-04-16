@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, watch, ref } from 'vue'
 import { store } from '../store'
-import axios from 'axios'
+import messageService from '../services/messages'
 import MessageList from './MessageList.vue'
 import MessageInput from './MessageInput.vue'
 import UserList from './UserList.vue'
@@ -24,9 +24,7 @@ interface Message {
   timestamp: Date
   _id: string
 }
-
-const messages = ref<Message[]>([])
-
+/*
 const getMessages = async () => {
   try {
     const response = await axios.get(
@@ -39,25 +37,25 @@ const getMessages = async () => {
         },
       }
     )
-    messages.value = response.data
+    store.messages = response.data
   } catch (e) {
     console.log(e)
   }
 }
-
-onMounted(async () => {
-  getMessages()
+*/
+onMounted(() => {
+  messageService.getMessages()
 })
 
 watch(store.currentChannel, () => {
-  getMessages()
+  messageService.getMessages()
 })
-
+/*
 WS.onmessage = async (event) => {
   console.log('message received')
   await getMessages()
 }
-
+*/
 </script>
 
 <template>
@@ -65,7 +63,7 @@ WS.onmessage = async (event) => {
     <ChatBanner />
     <div class="flex flex-row grow overflow-auto">
       <div class="flex flex-col grow w">
-        <MessageList :messages="messages" />
+        <MessageList :messages="store.messages" />
         <MessageInput />
       </div>
       <UserList />

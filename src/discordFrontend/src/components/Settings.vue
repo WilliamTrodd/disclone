@@ -27,7 +27,7 @@ const setDisplayName = async (newName: string) => {
   store.loggedInUser.username = newName
   displayName.value = newName
   const data = await updateUsername(store.loggedInUser)
-  WS.send(JSON.stringify(data))
+  WS.send(JSON.stringify({ type: 'updateUser', value: data }))
 }
 
 const displayName = ref('')

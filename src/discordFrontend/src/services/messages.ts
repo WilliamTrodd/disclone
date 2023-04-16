@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { store } from '../store'
 const baseUrl = import.meta.env.VITE_API_URL
 
 interface NewMessage {
@@ -21,5 +22,23 @@ const create = async (newMessage: NewMessage) => {
   return response.data
 }
 
+const getMessages = async () => {
+  try {
+    const response = await axios.get(
+      `${baseUrl}/channels/${store.currentServer.id}/${store.currentChannel.id}`,
+      {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        },
+      }
+    )
+    store.messages = response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
 
-export default { create, setToken }
+
+export default { create, setToken, getMessages }

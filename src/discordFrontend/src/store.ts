@@ -6,11 +6,19 @@ interface Message {
   userId: string
 }
 
+interface User {
+  _id: string
+  username: string
+  memberOf: string[]
+  profilePicture: string
+  firebaseId: string
+}
+// move to using Pinia for better TS integration
 export const store = reactive({
   currentServer: {id: '', name: '' },
   currentChannel: {id: '', name:''},
   selectedUserId: '',
-  messages: [],
+  messages: [] as Message[],
   loggedInUser: {
     _id: '',
     firebaseId: '',
@@ -18,7 +26,8 @@ export const store = reactive({
     profilePicture: '',
     memberOf: ['']
   },
-  settingsModal: false
+  settingsModal: false,
+  users: [] as User[],
 })
 
 /*
