@@ -95,7 +95,7 @@ watch(() => store.selectedUserId, async () => {
                     </path>
                   </svg>
                   <div class="text-dc-grey-text text-sm leading-[18px] font-normal">
-                    <!-- TODO user join date -->
+                    <!-- TODO user join date from Mongo? Add to the object-->
                     Sep 21, 2021
                   </div>
                   <div class="h-1 w-1 rounded-[50%] bg-dc-grey-text">

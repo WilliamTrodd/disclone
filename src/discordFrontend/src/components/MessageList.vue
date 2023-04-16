@@ -16,6 +16,7 @@ onMounted(() => {
 onUpdated(() => {
   // TODO - only scroll to latest if the user is already at the bottom of the chat
   // TODO - stop scrolling if the user is in another chat
+  //something to do with store.currentServer but I need to think about this some more
   scrollToLatest()
 })
 

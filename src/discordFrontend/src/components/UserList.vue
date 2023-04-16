@@ -18,13 +18,7 @@ onBeforeMount(() => {
 watch(store.currentServer, () => {
   getUsers()
 })
-/*
-WS.onmessage = async (event) => {
-  TODO implement this so that users are updated when a user changes their display name
-  console.log('message received')
-  users.value = await getUsers()
-}
-*/
+
 const userClickHandler = (userId: string) => {
   store.settingsModal = false
   store.selectedUserId = userId
@@ -46,7 +40,7 @@ const userClickHandler = (userId: string) => {
               <svg width="40" height="40" viewBox="0 0 40 40" class="absolute">
                 <mask id=":round:" width="32" height="32">
                   <circle cx="16" cy="16" r="16" fill="white"></circle>
-                  <!-- TODO: this can be used to mask the area for statuses rect color="black" x="19" y="19" width="16" height="16" rx="8" ry="8"></rect -->
+                  <!-- this can be used to mask the area for statuses rect color="black" x="19" y="19" width="16" height="16" rx="8" ry="8"></rect -->
                 </mask>
                 <foreignObject x="0" y="0" width="32" height="32" mask="url(#:round:)">
                   <img src="../assets/defaultDiscordAvatar.png" />

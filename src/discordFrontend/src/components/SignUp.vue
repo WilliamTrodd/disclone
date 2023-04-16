@@ -40,11 +40,18 @@ const googleSignIn = () => {
 </script>
 
 <template>
-  <div>
-    <!-- TODO: Make this look nice-->
-    <button @click="googleSignIn">
-      Sign In with Google
-    </button>
-
+  <div class="bg-dc-grey-300 h-screen flex justify-center items-center">
+    <div class="grid grid-cols-2 grid-rows-3 bg-dc-grey-700 p-3 rounded-lg">
+      <span class="col-span-2 text-white uppercase text-center">Welcome to Disclone</span>
+      <span>
+      </span>
+      <span>
+      </span>
+      <span>
+      </span>
+      <button class="text-sm uppercase bg-dc-blue-100 p-4 rounded-md text-white" @click="googleSignIn">
+        Sign In with Google
+      </button>
+    </div>
   </div>
 </template>

@@ -19,9 +19,11 @@ interface NewUser {
 
 export const getUsers = async () => {
   try {
-    const {data}: {data: User[]} = await axios.get(`${apiUrl}/users/server/${store.currentServer.id}`)
-    console.log(data)
-    store.users = data
+    if(store.loggedInUser.username !== ''){
+      const {data}: {data: User[]} = await axios.get(`${apiUrl}/users/server/${store.currentServer.id}`)
+      console.log(data)
+      store.users = data
+    }
   } catch (e){
     throw new Error('Error fetching users')
   }
