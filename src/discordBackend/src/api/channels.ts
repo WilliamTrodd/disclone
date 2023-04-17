@@ -93,7 +93,7 @@ channelsRouter.get('/:serverId/:channelId', async (req: Request, res: Response) 
 channelsRouter.get('/:serverId/:channelId/:page', async (req: Request, res: Response) => {
   try {
     const pageAsInt = parseInt(req.params.page) || 1
-    const pageSizeAsInt = 50
+    const pageSizeAsInt = 20
 
     const messages = await connectToMessages()
     const gotMessages = messages.aggregate([

@@ -33,11 +33,9 @@ const getMessages = async () => {
       },
     })
     store.messages = [...pagedData.data.messages.data, ...store.messages]
-    console.log(store.messages)
   } catch (e) {
     console.log(e)
   }
 }
-
 
 export default { create, setToken, getMessages }

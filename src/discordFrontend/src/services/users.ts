@@ -21,7 +21,6 @@ export const getUsers = async () => {
   try {
     if(store.loggedInUser.username !== ''){
       const {data}: {data: User[]} = await axios.get(`${apiUrl}/users/server/${store.currentServer.id}`)
-      console.log(data)
       store.users = data
     }
   } catch (e){

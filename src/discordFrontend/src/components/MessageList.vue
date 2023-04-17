@@ -36,10 +36,8 @@ const onScroll = (async (e) => {
   if (element.scrollTop === 0) {
     store.messagePage++
     let x = element.scrollHeight
-    console.log(x)
     await messageService.getMessages()
     let y = element.scrollHeight - x
-    console.log(y)
     element.scrollTo(0, y)
   }
 })

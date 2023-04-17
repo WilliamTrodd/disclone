@@ -22,7 +22,6 @@ const sendMessage = async (text: string) => {
   }
   try {
     const data = await messageService.create(message)
-    console.log(data)
     WS.send(JSON.stringify({ type: 'message', data: data }))
   } catch (e) {
     console.log(e)

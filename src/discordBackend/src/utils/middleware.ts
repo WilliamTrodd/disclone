@@ -7,7 +7,6 @@ const decodeToken = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { uid } = await getAuth().verifyIdToken(token)
       if (uid) {
-        console.log(uid)
         return next()
       }
       return res.json({ message: 'Unauthorized' })
