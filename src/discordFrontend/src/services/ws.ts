@@ -12,9 +12,14 @@ WS.onmessage = (event) => {
       messageService.getMessages()
       break
     case 'updateUser':
-      console.log(data.value)
+      console.log(data.value.value)
       getUsers()
-      messageService.getMessages()
+
+      store.messages = store.messages.map(
+        (message) => message.userId === data.value.value._id 
+        ? {...message, user: {...message.user, username: data.value.value.username}} 
+        : message
+      )
       break
   }
 }

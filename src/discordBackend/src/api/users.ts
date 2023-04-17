@@ -76,9 +76,10 @@ usersRouter.put('/username/:userId', async (req: Request, res: Response) => {
     const users = await connectToUsers()
     const updatedUser = req.body
     const newName = updatedUser.username
-    const result = await users.updateOne(
+    const result = await users.findOneAndUpdate(
       { _id: new ObjectId(req.params.userId) },
-      { $set: { username: newName } }
+      { $set: { username: newName } },
+      { returnDocument: 'after' }
     )
     res.json(result)
   } catch (e) {

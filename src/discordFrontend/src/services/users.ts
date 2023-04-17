@@ -55,9 +55,16 @@ export const getUserDetails = async (userId: string) => {
   }
 }
 
+interface UpdateUser {
+  _id: string
+  username: string
+  memberOf: string[]
+  profilePicture: string
+}
+
 export const updateUsername = async (user: User) => {
   try {
-    const {data}: {data: User} = await axios.put(`${apiUrl}/users/username/${user._id}`, user)
+    const {data} = await axios.put<UpdateUser>(`${apiUrl}/users/username/${user._id}`, user)
     console.log('data', data)
     return data
   } catch (e) {
