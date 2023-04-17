@@ -99,7 +99,10 @@ channelsRouter.get('/:serverId/:channelId/:page', async (req: Request, res: Resp
     const gotMessages = messages.aggregate([
       {
         $facet: {
-          metadata: [{ $count: 'totalCount' }],
+          metadata: [
+            { $match: { channelId: new ObjectId(req.params.channelId) } },
+            { $count: 'totalCount' },
+          ],
           data: [
             { $match: { channelId: new ObjectId(req.params.channelId) } },
             { $sort: { timestamp: -1 } },
@@ -112,13 +115,16 @@ channelsRouter.get('/:serverId/:channelId/:page', async (req: Request, res: Resp
         },
       },
     ])
-
     const channelMessages = await gotMessages.toArray()
 
     return res.status(200).json({
       success: true,
       messages: {
-        metadata: { totalCount: channelMessages[0].metadata[0].total, pageAsInt, pageSizeAsInt },
+        metadata: {
+          totalCount: channelMessages[0].metadata[0].totalCount,
+          pageAsInt,
+          pageSizeAsInt,
+        },
         data: channelMessages[0].data,
       },
     })

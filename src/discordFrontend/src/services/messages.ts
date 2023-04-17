@@ -32,6 +32,7 @@ const getMessages = async () => {
         'Expires': '0',
       },
     })
+    store.messageCount = pagedData.data.messages.metadata.totalCount
     store.messages = [...pagedData.data.messages.data, ...store.messages]
   } catch (e) {
     console.log(e)
