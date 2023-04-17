@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { store } from '../store'
 import { getUsers } from '../services/users'
 import WS from '../services/ws';
@@ -11,7 +11,7 @@ interface User {
   memberOf: string[]
 }
 
-onBeforeMount(() => {
+onMounted(() => {
   getUsers()
 })
 

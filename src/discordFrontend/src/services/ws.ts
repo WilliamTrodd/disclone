@@ -12,6 +12,7 @@ WS.onmessage = (event) => {
       messageService.getMessages()
       break
     case 'updateUser':
+      console.log(data.value)
       getUsers()
       messageService.getMessages()
       break

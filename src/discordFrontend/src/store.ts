@@ -1,11 +1,5 @@
 import { reactive } from 'vue'
 
-interface Message {
-  text: string
-  channelId: string
-  userId: string
-}
-
 interface User {
   _id: string
   username: string
@@ -13,6 +7,16 @@ interface User {
   profilePicture: string
   firebaseId: string
 }
+interface Message {
+  text: string
+  channelId: string
+  userId: string
+  timestamp: Date
+  _id: string
+  user: User
+}
+
+
 // move to using Pinia for better TS integration
 export const store = reactive({
   currentServer: {id: '', name: '' },
