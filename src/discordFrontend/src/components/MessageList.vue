@@ -53,7 +53,8 @@ const onScroll = (async (e) => {
       <div class=" flex relative min-h-full items-stretch justify-end">
         <ol class="bg-dc-grey-300 text-white flex grow flex-col overflow-hidden relative leading-4 justify-end">
           <div v-for="message in store.messages" :key="message._id" class="p-2 flex justify-between hover:bg-dc-grey-500">
-            <Message :username="message.user.username" :text="message.text" :timestamp="message.timestamp" />
+            <Message :username="message.user ? message.user.username : 'Deleted User'" :text="message.text"
+              :timestamp="message.timestamp" />
           </div>
           <div id="chatBottom" class="h-[30px] w-[1px] block"></div>
         </ol>

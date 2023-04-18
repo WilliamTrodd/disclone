@@ -110,7 +110,7 @@ channelsRouter.get('/:serverId/:channelId/:page', async (req: Request, res: Resp
             { $skip: (pageAsInt - 1) * pageSizeAsInt },
             { $limit: pageSizeAsInt },
             { $lookup: { from: 'users', localField: 'userId', foreignField: '_id', as: 'user' } },
-            { $unwind: { path: '$user' } },
+            { $unwind: { path: '$user', preserveNullAndEmptyArrays: true } },
             { $sort: { timestamp: 1 } },
           ],
         },
