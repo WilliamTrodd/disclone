@@ -65,7 +65,6 @@ interface UpdateUser {
 export const updateUsername = async (user: User) => {
   try {
     const {data} = await axios.put<UpdateUser>(`${apiUrl}/users/username/${user._id}`, user)
-    console.log('data', data)
     return data
   } catch (e) {
     throw new Error('Error updating user')

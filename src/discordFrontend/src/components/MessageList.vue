@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, onUpdated, ref } from 'vue'
+import { onMounted, onUnmounted, onUpdated } from 'vue'
 import Message from './Message.vue'
 import messageService from '../services/messages'
 import { store } from '../store'
 
-
-//todo pagination
-
-const scrollComponent = ref(null)
 
 const scrollToLatest = () => {
   const chatBottom = document.getElementById('chatBottom')
@@ -33,8 +29,6 @@ onUnmounted(() => {
 const onScroll = (async (e) => {
   const element = e.target
   if (element.scrollTop === 0 && store.messages.length < store.messageCount) {
-    console.log(store.messages.length)
-    console.log(store.messageCount)
     store.messagePage++
     let x = element.scrollHeight
     await messageService.getMessages()

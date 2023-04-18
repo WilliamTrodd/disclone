@@ -117,7 +117,6 @@ channelsRouter.get('/:serverId/:channelId/:page', async (req: Request, res: Resp
       },
     ])
     const channelMessages = await gotMessages.toArray()
-    console.log(channelMessages[0])
 
     return res.status(200).json({
       success: true,
