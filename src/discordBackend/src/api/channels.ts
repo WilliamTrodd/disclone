@@ -2,13 +2,14 @@ import { connectToCluster } from '../mongoClient'
 import { config } from 'dotenv'
 import { AggregationCursor, ObjectId } from 'mongodb'
 import { Request, Response } from 'express'
+import { connectToChannels, connectToMessages } from './collectionConnectors'
 
 const channelsRouter = require('express').Router()
 
 config()
 
 const uri = process.env.MONGO_URI as string
-
+/*
 const connectToChannels = async () => {
   const client = await connectToCluster(uri)
   const database = client.db('discordClone')
@@ -22,7 +23,7 @@ const connectToMessages = async () => {
   const messages = database.collection('messages')
   return messages
 }
-
+*/
 // get all channels
 channelsRouter.get('/', async (_req: Request, res: Response) => {
   try {
@@ -52,7 +53,7 @@ channelsRouter.get('/:serverId', async (req: Request, res: Response) => {
   }
 })
 
-// get messages for channel
+/* get messages for channel
 channelsRouter.get('/:serverId/:channelId', async (req: Request, res: Response) => {
   try {
     const messages = await connectToMessages()
@@ -89,7 +90,7 @@ channelsRouter.get('/:serverId/:channelId', async (req: Request, res: Response) 
     console.log(e)
   }
 })
-
+*/
 channelsRouter.get('/:serverId/:channelId/:page', async (req: Request, res: Response) => {
   try {
     const pageAsInt = parseInt(req.params.page) || 1
@@ -116,6 +117,7 @@ channelsRouter.get('/:serverId/:channelId/:page', async (req: Request, res: Resp
       },
     ])
     const channelMessages = await gotMessages.toArray()
+    console.log(channelMessages[0])
 
     return res.status(200).json({
       success: true,

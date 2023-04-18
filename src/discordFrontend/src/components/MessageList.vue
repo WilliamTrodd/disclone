@@ -33,6 +33,8 @@ onUnmounted(() => {
 const onScroll = (async (e) => {
   const element = e.target
   if (element.scrollTop === 0 && store.messages.length < store.messageCount) {
+    console.log(store.messages.length)
+    console.log(store.messageCount)
     store.messagePage++
     let x = element.scrollHeight
     await messageService.getMessages()
