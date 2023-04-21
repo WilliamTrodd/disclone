@@ -7,8 +7,9 @@ WS.onmessage = (event) => {
   const data = JSON.parse(event.data)
   switch(data.type) {
     case 'message':
-      if(store.currentChannel === data.data[0].channelId)
-        {store.messages.push(data.data[0])}
+      if(store.currentChannel.id === data.data[0].channelId){
+        store.messages.push(data.data[0])
+      }
       break
     case 'updateUser':
       console.log(data.value.value)
