@@ -2,6 +2,8 @@ import { Collection, Db } from 'mongodb'
 import { Server, Channel, Message, User } from '../types'
 import db from '../db'
 
+//TODO rename to get__Collection
+
 export const connectToServers = async () => {
   const database: Db = await db
   const servers: Collection<Server> = database.collection('servers')

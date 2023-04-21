@@ -4,10 +4,13 @@ import { Request, Response, Router } from 'express'
 
 const usersRouter = Router()
 
+//TODO refactor for readability/logical layout
+
 usersRouter.get('/server/:serverId', async (req: Request, res: Response) => {
   try {
     const users = await connectToUsers()
-    const gotUsers = users.find({ 'memberOf._id': new ObjectId(req.params.serverId) })
+    console.log(await users.find().toArray())
+    const gotUsers = users.find({ memberOf: new ObjectId(req.params.serverId) })
     const allUsers = await gotUsers.toArray()
     res.json(allUsers)
   } catch (e) {

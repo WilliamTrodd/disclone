@@ -1,29 +1,11 @@
 <script setup lang="ts">
-import { onMounted, watch, ref } from 'vue'
+import { onMounted, watch } from 'vue'
 import { store } from '../store'
 import messageService from '../services/messages'
 import MessageList from './MessageList.vue'
 import MessageInput from './MessageInput.vue'
 import UserList from './UserList.vue'
 import ChatBanner from './ChatBanner.vue'
-import WS from '../services/ws'
-
-const apiUrl = import.meta.env.VITE_API_URL
-
-interface User {
-  _id: string
-  memberOf: []
-  username: string
-  profilePicture: string
-}
-
-interface Message {
-  text: string
-  channelId: string
-  user: User
-  timestamp: Date
-  _id: string
-}
 
 onMounted(() => {
   messageService.getMessages()

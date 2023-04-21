@@ -12,29 +12,22 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import UserPanel from "../components/UserPanel.vue"
 import UserDetails from "../components/UserDetails.vue";
 import Settings from "../components/Settings.vue";
-
-interface Server {
-  name: string
-  _id: string
-  icon: string
-}
-interface Channel {
-  name: string
-  _id: string
-  serverId: string
-}
+import { Server, Channel } from '../utils/types'
 
 const servers = ref<Server[]>([])
 const channels = ref<Channel[]>([])
+const uid = ref()
 
 //TODO split the Signin and Main view into two different views using the Router
 //at the moment, the signin page is shown briefly before the main view is loaded
 
 const auth = getAuth()
 onAuthStateChanged(auth, async (user) => {
+  console.log(auth.currentUser)
   if (user) {
     const loggedIn = await findUser(user.uid)
     const userToken = await user.getIdToken()
+    uid.value = userToken
     messageService.setToken(userToken)
     store.loggedInUser = loggedIn
   } else {
@@ -43,6 +36,7 @@ onAuthStateChanged(auth, async (user) => {
 })
 
 onBeforeMount(async () => {
+  uid.value = await auth.currentUser?.getIdToken()
   servers.value = await getServers()
   channels.value = await getChannels(store.currentServer.id)
 })
@@ -64,7 +58,7 @@ const modalCloser = () => {
 
 
 <template>
-  <div v-if='store.loggedInUser.username' class="min-h-screen flex" @click="modalCloser">
+  <div v-if='uid' class="min-h-screen flex" @click="modalCloser">
     <UserDetails />
     <Settings />
     <div v-if='servers' class="flex grow">

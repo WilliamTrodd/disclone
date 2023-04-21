@@ -4,7 +4,7 @@ export interface User {
   _id: ObjectId
   username: string
   profilePicture: string
-  memberOf: Server[]
+  memberOf: ObjectId[]
   firebaseUid: string
 }
 

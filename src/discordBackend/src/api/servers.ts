@@ -4,6 +4,8 @@ import { connectToServers } from './collectionConnectors'
 
 const serversRouter = Router()
 
+//TODO refactor for readability/logical layout
+
 // Get all servers
 serversRouter.get('/', async (_req: Request, res: Response) => {
   try {

@@ -2,15 +2,7 @@
 import { ref, watch } from 'vue';
 import { getUserDetails } from '../services/users'
 import { store } from '../store'
-
-const hover = ref<Boolean>(false)
-
-interface User {
-  _id: string
-  username: string
-  profilePicture: string
-  memberOf: string[]
-}
+import { User } from '../utils/types'
 
 const user = ref<User>({} as User);
 
@@ -19,8 +11,6 @@ watch(() => store.selectedUserId, async () => {
     user.value = await getUserDetails(store.selectedUserId);
   }
 });
-
-
 
 </script>
 

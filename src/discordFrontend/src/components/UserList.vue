@@ -2,14 +2,6 @@
 import { onMounted, ref, watch } from 'vue'
 import { store } from '../store'
 import { getUsers } from '../services/users'
-import WS from '../services/ws';
-
-interface User {
-  _id: string
-  username: string
-  profilePicture: string
-  memberOf: string[]
-}
 
 onMounted(() => {
   getUsers()

@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import axios from 'axios'
 import { ref } from 'vue'
 import { store } from '../store'
 import WS from '../services/ws'
 import messageService from '../services/messages'
-const apiUrl = import.meta.env.VITE_API_URL
-
-interface NewMessage {
-  text: string
-  channelId: string
-  userId: string
-}
+import { NewMessage } from '../utils/types'
+import { getAuth } from 'firebase/auth'
 
 const text = ref('')
 

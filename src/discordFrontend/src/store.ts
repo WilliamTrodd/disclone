@@ -1,21 +1,5 @@
 import { reactive } from 'vue'
-
-interface User {
-  _id: string
-  username: string
-  memberOf: string[]
-  profilePicture: string
-  firebaseId: string
-}
-interface Message {
-  text: string
-  channelId: string
-  userId: string
-  timestamp: Date
-  _id: string
-  user: User
-}
-
+import { User, Message } from './utils/types'
 
 // move to using Pinia for better TS integration
 export const store = reactive({

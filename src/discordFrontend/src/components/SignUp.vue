@@ -2,13 +2,7 @@
 import { createUser } from "../services/users";
 import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth"
 import messageService from '../services/messages'
-
-interface User {
-  username: string
-  memberOf: string[]
-  profilePicture: string
-  firebaseId: string
-}
+import { NewUser } from '../utils/types'
 
 const googleSignIn = () => {
   let provider = new GoogleAuthProvider()
@@ -23,7 +17,7 @@ const googleSignIn = () => {
       console.log(auth.currentUser)
       const additional = getAdditionalUserInfo(result)
       if (additional?.isNewUser && user) {
-        const newUser: User = {
+        const newUser: NewUser = {
           username: user.email ? user.email.split('@')[0] : 'defaultName',
           memberOf: ['63f87660663ff1ba522c6f6f', '6404cd0c7ab148abe1a08d62'],
           profilePicture: '',
