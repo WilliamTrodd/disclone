@@ -1,12 +1,14 @@
 <script setup lang="ts">
-const props = defineProps(['username', 'text', 'timestamp'])
+const props = defineProps(['username', 'text', 'timestamp', 'userDetails'])
+
 </script>
 
 <template>
-  <li class="text-sm relative p-2 justify-between hover:bg-dc-grey-500">
-    <img src="../assets/defaultDiscordAvatar.png" class="rounded-full w-10 h-10 left-4 absolute" />
+  <li class="text-sm relative justify-between hover:bg-dc-grey-500" :class="[userDetails ? 'p-2' : 'px-2 py-1']">
+    <img v-if="props.userDetails" src="../assets/defaultDiscordAvatar.png"
+      class="rounded-full w-10 h-10 left-4 absolute" />
     <div class="pl-[72px]">
-      <h3 class="">
+      <h3 v-if="props.userDetails" class="">
         <span class="mr-1">
           <span class="font-medium align-baseline">
             {{ props.username }}

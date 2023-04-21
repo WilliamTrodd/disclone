@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, onUpdated } from 'vue'
+import { computed, onMounted, onUnmounted, onUpdated } from 'vue'
 import Message from './Message.vue'
 import DateSeparator from './DateSeparator.vue'
 import messageService from '../services/messages'
@@ -36,6 +36,15 @@ const onScroll = (async (e) => {
   }
 })
 
+const showUserDetails = (msgIndex: number) => {
+  if (store.messages[msgIndex - 1]) {
+    if (store.messages[msgIndex].user._id === store.messages[msgIndex - 1].user._id) {
+      return false
+    }
+  }
+  return true
+}
+
 </script>
 
 <template>
@@ -54,7 +63,7 @@ const onScroll = (async (e) => {
               </div>
             </template>
             <Message :username="message.user ? message.user.username : 'Deleted User'" :text="message.text"
-              :timestamp="message.timestamp" />
+              :timestamp="message.timestamp" :userDetails="showUserDetails(msgIndex)" />
           </div>
           <div id="chatBottom" class="h-[30px] w-[1px] block"></div>
         </ol>
