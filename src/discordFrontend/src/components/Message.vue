@@ -4,6 +4,8 @@ const props = defineProps(['username', 'text', 'timestamp', 'userDetails'])
 </script>
 
 <template>
+  <!--TODO check the padding/margins on this so it will show sequential messages nicely-->
+  <!--TODO show time on msg hover-->
   <li class="text-sm relative justify-between hover:bg-dc-grey-500" :class="[userDetails ? 'p-2' : 'px-2 py-1']">
     <img v-if="props.userDetails" src="../assets/defaultDiscordAvatar.png"
       class="rounded-full w-10 h-10 left-4 absolute" />

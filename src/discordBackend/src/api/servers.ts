@@ -1,8 +1,8 @@
 import { ObjectId } from 'mongodb'
-import { Request, Response } from 'express'
+import { Request, Response, Router } from 'express'
 import { connectToServers } from './collectionConnectors'
 
-const serversRouter = require('express').Router()
+const serversRouter = Router()
 
 // Get all servers
 serversRouter.get('/', async (_req: Request, res: Response) => {
@@ -11,7 +11,7 @@ serversRouter.get('/', async (_req: Request, res: Response) => {
     const allServers = await servers.find({}).toArray()
     res.json(allServers)
   } catch (e) {
-    console.log(e)
+    res.status(500).send({ error: e })
   }
 })
 
@@ -38,8 +38,8 @@ serversRouter.get('/:id', async (req: Request, res: Response) => {
     const serverWithChannels = await gotServers.toArray()
     res.json(serverWithChannels[0])
   } catch (e) {
-    console.log(e)
+    res.status(500).send({ error: e })
   }
 })
 
-module.exports = serversRouter
+export default serversRouter

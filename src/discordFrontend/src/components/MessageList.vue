@@ -53,13 +53,11 @@ const showUserDetails = (msgIndex: number) => {
 </script>
 
 <template>
-  <!--TODO split up by day and merge message by user-->
   <div class="relative flex grow shrink basis-auto min-h-0 min-w-0 z-0">
     <div id="chat"
       class="absolute bg-dc-grey-200 top-0 bottom-0 left-0 right-0 overflow-y-scroll overflow-hidden overscroll-none">
       <div class=" flex relative min-h-full items-stretch justify-end">
         <ol class="bg-dc-grey-300 text-white flex grow flex-col overflow-hidden relative leading-4 justify-end">
-          <!-- TODO - split the messages up by day and also by user so only one avatar is shown -->
           <div v-for="(message, msgIndex) in store.messages" :key="message._id + message.timestamp">
             <template v-if="store.messages[msgIndex - 1]">
               <div

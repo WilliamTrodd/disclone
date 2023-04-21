@@ -1,7 +1,6 @@
 import { Collection, Db } from 'mongodb'
 import { Server, Channel, Message, User } from '../types'
-
-const db = require('../db').default
+import db from '../db'
 
 export const connectToServers = async () => {
   const database: Db = await db

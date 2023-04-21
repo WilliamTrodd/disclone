@@ -1,10 +1,10 @@
 import { connectToMessages } from './collectionConnectors'
 import { ObjectId, Document } from 'mongodb'
 import { Message } from '../types'
-import { Request, Response } from 'express'
+import { Request, Response, Router } from 'express'
 import { decodeToken } from '../utils/middleware'
 
-const messagesRouter = require('express').Router()
+const messagesRouter = Router()
 messagesRouter.post('/', decodeToken, async (req: Request, res: Response) => {
   const { text, userId, channelId } = req.body
   try {
@@ -27,8 +27,8 @@ messagesRouter.post('/', decodeToken, async (req: Request, res: Response) => {
       .toArray()
     res.json(savedMessage)
   } catch (e) {
-    console.log(e)
+    res.status(500).send({ error: e })
   }
 })
 
-module.exports = messagesRouter
+export default messagesRouter

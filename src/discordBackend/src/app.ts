@@ -1,11 +1,10 @@
 import express from 'express'
-const usersRouter = require('./api/users')
-const channelsRouter = require('./api/channels')
-const serversRouter = require('./api/servers')
-const messagesRouter = require('./api/messages')
+import usersRouter from './api/users'
+import channelsRouter from './api/channels'
+import serversRouter from './api/servers'
+import messagesRouter from './api/messages'
 import * as admin from 'firebase-admin'
-const { decodeToken } = require('./utils/middleware')
-const cors = require('cors')
+import cors from 'cors'
 
 const discordApp = express()
 
@@ -19,10 +18,9 @@ admin.initializeApp({
 
 discordApp.use(cors())
 discordApp.use(express.json())
-//discordApp.use(decodeToken);
 discordApp.use('/api/users', usersRouter)
 discordApp.use('/api/channels', channelsRouter)
 discordApp.use('/api/servers', serversRouter)
 discordApp.use('/api/messages', messagesRouter)
 
-module.exports = discordApp
+export default discordApp

@@ -1,8 +1,9 @@
 import { ObjectId } from 'mongodb'
 import { Request, Response } from 'express'
 import { connectToChannels, connectToMessages } from './collectionConnectors'
+import Router from 'express'
 
-const channelsRouter = require('express').Router()
+const channelsRouter = Router()
 
 // get all channels
 channelsRouter.get('/', async (_req: Request, res: Response) => {
@@ -11,25 +12,18 @@ channelsRouter.get('/', async (_req: Request, res: Response) => {
     const allChannels = await channels.find({}).toArray()
     res.json(allChannels)
   } catch (e) {
-    console.log(e)
+    res.status(500).send({ error: e })
   }
 })
 
 channelsRouter.get('/:serverId', async (req: Request, res: Response) => {
   try {
     const channels = await connectToChannels()
-    const agg = [
-      {
-        $match: {
-          serverId: new ObjectId(req.params.serverId),
-        },
-      },
-    ]
-    const gotChannels = channels.aggregate(agg)
+    const gotChannels = channels.find({ serverId: new ObjectId(req.params.serverId) })
     const allChannels = await gotChannels.toArray()
     res.json(allChannels)
   } catch (e) {
-    console.log(e)
+    res.status(500).send({ error: e })
   }
 })
 
@@ -75,4 +69,4 @@ channelsRouter.get('/:serverId/:channelId/:page', async (req: Request, res: Resp
     return res.status(500).json({ success: false })
   }
 })
-module.exports = channelsRouter
+export default channelsRouter

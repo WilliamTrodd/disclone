@@ -11,7 +11,6 @@ const decodeToken = async (req: Request, res: Response, next: NextFunction) => {
       }
       return res.json({ message: 'Unauthorized' })
     } catch (e) {
-      console.log(e)
       return res.json({ message: 'Internal Error' })
     }
   }

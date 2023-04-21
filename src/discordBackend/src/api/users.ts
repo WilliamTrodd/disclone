@@ -1,24 +1,17 @@
 import { ObjectId } from 'mongodb'
 import { connectToUsers } from './collectionConnectors'
-import { Request, Response } from 'express'
+import { Request, Response, Router } from 'express'
 
-const usersRouter = require('express').Router()
+const usersRouter = Router()
 
 usersRouter.get('/server/:serverId', async (req: Request, res: Response) => {
   try {
     const users = await connectToUsers()
-    const agg = [
-      {
-        $match: {
-          memberOf: new ObjectId(req.params.serverId),
-        },
-      },
-    ]
-    const gotUsers = users.aggregate(agg)
+    const gotUsers = users.find({ 'memberOf._id': new ObjectId(req.params.serverId) })
     const allUsers = await gotUsers.toArray()
     res.json(allUsers)
   } catch (e) {
-    console.log(e)
+    res.status(500).send({ error: e })
   }
 })
 
@@ -28,7 +21,7 @@ usersRouter.get('/loggedIn/:userId', async (req: Request, res: Response) => {
     const loggedInUser = await users.findOne({ firebaseId: req.params.userId })
     res.json(loggedInUser)
   } catch (e) {
-    console.log(e)
+    res.status(500).send({ error: e })
   }
 })
 
@@ -38,7 +31,7 @@ usersRouter.get('/:userId', async (req: Request, res: Response) => {
     const user = await users.findOne({ _id: new ObjectId(req.params.userId) })
     res.json(user)
   } catch (e) {
-    console.log(e)
+    res.status(500).send({ error: e })
   }
 })
 
@@ -50,7 +43,7 @@ usersRouter.post('/', async (req: Request, res: Response) => {
     const result = await users.insertOne(newUser)
     res.json(result)
   } catch (e) {
-    console.log(e)
+    res.status(500).send({ error: e })
   }
 })
 
@@ -66,8 +59,8 @@ usersRouter.put('/username/:userId', async (req: Request, res: Response) => {
     )
     res.json(result)
   } catch (e) {
-    console.log(e)
+    res.status(500).send({ error: e })
   }
 })
 
-module.exports = usersRouter
+export default usersRouter
