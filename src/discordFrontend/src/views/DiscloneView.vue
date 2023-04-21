@@ -27,6 +27,9 @@ interface Channel {
 const servers = ref<Server[]>([])
 const channels = ref<Channel[]>([])
 
+//TODO split the Signin and Main view into two different views using the Router
+//at the moment, the signin page is shown briefly before the main view is loaded
+
 const auth = getAuth()
 onAuthStateChanged(auth, async (user) => {
   if (user) {
