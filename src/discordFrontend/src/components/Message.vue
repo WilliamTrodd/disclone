@@ -3,7 +3,7 @@ const props = defineProps(['username', 'text', 'timestamp'])
 </script>
 
 <template>
-  <li class="text-sm relative">
+  <li class="text-sm relative p-2 justify-between hover:bg-dc-grey-500">
     <img src="../assets/defaultDiscordAvatar.png" class="rounded-full w-10 h-10 left-4 absolute" />
     <div class="pl-[72px]">
       <h3 class="">

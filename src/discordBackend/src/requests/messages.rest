@@ -12,3 +12,9 @@ GET http://localhost:3001/api/servers/63f87660663ff1ba522c6f6f/main
 
 ###
 GET http://localhost:3001/api/servers/63f87660663ff1ba522c6f6f
+
+###
+POST http://localhost:3001/api/messages
+Content-Type: application/json
+
+{"text": "silly no auth","channelId":"640d8626063d8cd938c852b6","userId":"63f84cf878b9a5c96f8bf92d"}

@@ -12,6 +12,7 @@ module.exports = {
         "dc-grey-300": "#313338",
         "dc-grey-200": "#35373c",
         "dc-grey-100": "#424549",
+        "dc-grey-50": "rgba(78,80,88,0.48)",
         "dc-grey-text": "#989AA1",
         "dc-blue-800": "#7289da",
         "dc-grey-text-200": "#949ba4",

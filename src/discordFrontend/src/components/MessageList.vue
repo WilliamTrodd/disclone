@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, onUpdated } from 'vue'
 import Message from './Message.vue'
+import DateSeparator from './DateSeparator.vue'
 import messageService from '../services/messages'
 import { store } from '../store'
 
 
 const scrollToLatest = () => {
+  // this could be updated to instead show a small notification that there are new messages
   const chatBottom = document.getElementById('chatBottom')
   chatBottom?.scrollIntoView(false)
 }
@@ -16,9 +18,6 @@ onMounted(() => {
 })
 
 onUpdated(() => {
-  // TODO - only scroll to latest if the user is already at the bottom of the chat
-  // TODO - stop scrolling if the user is in another chat
-  //something to do with store.currentServer but I need to think about this some more
   scrollToLatest()
 })
 
@@ -47,7 +46,13 @@ const onScroll = (async (e) => {
       <div class=" flex relative min-h-full items-stretch justify-end">
         <ol class="bg-dc-grey-300 text-white flex grow flex-col overflow-hidden relative leading-4 justify-end">
           <!-- TODO - split the messages up by day and also by user so only one avatar is shown -->
-          <div v-for="message in store.messages" :key="message._id" class="p-2 flex justify-between hover:bg-dc-grey-500">
+          <div v-for="(message, msgIndex) in store.messages" :key="message._id + message.timestamp">
+            <template v-if="store.messages[msgIndex - 1]">
+              <div
+                v-if="message.timestamp.toString().substring(0, 10) !== store.messages[msgIndex - 1].timestamp.toString().substring(0, 10)">
+                <DateSeparator :timestamp="message.timestamp" />
+              </div>
+            </template>
             <Message :username="message.user ? message.user.username : 'Deleted User'" :text="message.text"
               :timestamp="message.timestamp" />
           </div>
