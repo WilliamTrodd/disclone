@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "noImplicitAny": true
   },
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Recommended",

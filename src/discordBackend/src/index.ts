@@ -1,17 +1,18 @@
-const WebSocket = require('ws')
+const WS = require('ws')
 const app = require('./app')
 const http = require('http')
 import { config } from 'dotenv'
+import { WebSocketServer, WebSocket } from 'ws'
 
 const server = http.createServer(app)
 
-const wss = new WebSocket.Server({ server: server })
+const wss: WebSocketServer = new WS.Server({ server: server })
 
-wss.on('connection', function connection(ws: any) {
+wss.on('connection', function connection(ws: WebSocket) {
   console.log('A new client connected!')
 
-  ws.on('message', function message(data: any, isBinary: boolean) {
-    wss.clients.forEach(function each(client: any) {
+  ws.on('message', function message(data, isBinary: boolean) {
+    wss.clients.forEach(function each(client: WebSocket) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(data, { binary: isBinary })
       }

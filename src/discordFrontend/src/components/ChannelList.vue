@@ -7,6 +7,7 @@ const props = defineProps(["channels"])
 const setChannel = (name: string, id: string) => {
   store.currentChannel.name = name
   store.currentChannel.id = id
+
 }
 
 </script>

@@ -1,5 +1,5 @@
 import { connectToMessages } from './collectionConnectors'
-import { ObjectId } from 'mongodb'
+import { ObjectId, Document } from 'mongodb'
 import { Message } from '../types'
 import { Request, Response } from 'express'
 import { decodeToken } from '../utils/middleware'

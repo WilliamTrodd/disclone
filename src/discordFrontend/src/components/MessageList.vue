@@ -46,6 +46,7 @@ const onScroll = (async (e) => {
       class="absolute bg-dc-grey-200 top-0 bottom-0 left-0 right-0 overflow-y-scroll overflow-hidden overscroll-none">
       <div class=" flex relative min-h-full items-stretch justify-end">
         <ol class="bg-dc-grey-300 text-white flex grow flex-col overflow-hidden relative leading-4 justify-end">
+          <!-- TODO - split the messages up by day and also by user so only one avatar is shown -->
           <div v-for="message in store.messages" :key="message._id" class="p-2 flex justify-between hover:bg-dc-grey-500">
             <Message :username="message.user ? message.user.username : 'Deleted User'" :text="message.text"
               :timestamp="message.timestamp" />

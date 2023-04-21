@@ -1,29 +1,9 @@
-import { connectToCluster } from '../mongoClient'
-import { config } from 'dotenv'
-import { AggregationCursor, ObjectId } from 'mongodb'
+import { ObjectId } from 'mongodb'
 import { Request, Response } from 'express'
 import { connectToChannels, connectToMessages } from './collectionConnectors'
 
 const channelsRouter = require('express').Router()
 
-config()
-
-const uri = process.env.MONGO_URI as string
-/*
-const connectToChannels = async () => {
-  const client = await connectToCluster(uri)
-  const database = client.db('discordClone')
-  const channels = database.collection('channels')
-  return channels
-}
-
-const connectToMessages = async () => {
-  const client = await connectToCluster(uri)
-  const database = client.db('discordClone')
-  const messages = database.collection('messages')
-  return messages
-}
-*/
 // get all channels
 channelsRouter.get('/', async (_req: Request, res: Response) => {
   try {
@@ -53,44 +33,6 @@ channelsRouter.get('/:serverId', async (req: Request, res: Response) => {
   }
 })
 
-/* get messages for channel
-channelsRouter.get('/:serverId/:channelId', async (req: Request, res: Response) => {
-  try {
-    const messages = await connectToMessages()
-    const agg = [
-      {
-        $match: {
-          channelId: new ObjectId(req.params.channelId),
-        },
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'userId',
-          foreignField: '_id',
-          as: 'user',
-        },
-      },
-      {
-        $unwind: {
-          path: '$user',
-        },
-      },
-      {
-        $sort: {
-          timestamp: 1,
-        },
-      },
-    ]
-    const gotMessages = messages.aggregate(agg)
-
-    const channelMessages = await gotMessages.toArray()
-    res.json(channelMessages)
-  } catch (e) {
-    console.log(e)
-  }
-})
-*/
 channelsRouter.get('/:serverId/:channelId/:page', async (req: Request, res: Response) => {
   try {
     const pageAsInt = parseInt(req.params.page) || 1

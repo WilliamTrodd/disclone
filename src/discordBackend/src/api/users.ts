@@ -1,26 +1,9 @@
-import { connectToCluster } from '../mongoClient'
-import { config } from 'dotenv'
 import { ObjectId } from 'mongodb'
 import { connectToUsers } from './collectionConnectors'
 import { Request, Response } from 'express'
 
 const usersRouter = require('express').Router()
 
-config()
-const uri = process.env.MONGO_URI as string
-/*
-usersRouter.get('/', async (_req: Request, res: Response) => {
-  try {
-    const client = await connectToCluster(uri)
-    const database = client.db('discordClone')
-    const users = database.collection('users')
-    const allUsers = await users.find({}).toArray()
-    res.json(allUsers)
-  } catch (e) {
-    console.log(e)
-  }
-})
-*/
 usersRouter.get('/server/:serverId', async (req: Request, res: Response) => {
   try {
     const users = await connectToUsers()
