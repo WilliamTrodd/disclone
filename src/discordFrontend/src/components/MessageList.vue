@@ -38,8 +38,13 @@ const onScroll = (async (e) => {
 
 const showUserDetails = (msgIndex: number) => {
   if (store.messages[msgIndex - 1]) {
-    if (store.messages[msgIndex].user._id === store.messages[msgIndex - 1].user._id) {
-      return false
+    if (store.messages[msgIndex].user !== undefined && store.messages[msgIndex - 1].user !== undefined) {
+      if (store.messages[msgIndex].timestamp.toString().substring(0, 10) !== store.messages[msgIndex - 1].timestamp.toString().substring(0, 10)) {
+        return true
+      }
+      if ((store.messages[msgIndex].user._id == store.messages[msgIndex - 1].user._id)) {
+        return false
+      }
     }
   }
   return true
