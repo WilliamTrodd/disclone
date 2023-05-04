@@ -31,3 +31,4 @@ yarn-error.log*
 
 # turbo
 .turbo
+src/discordBackend/discordCloneServiceAccKey.json
