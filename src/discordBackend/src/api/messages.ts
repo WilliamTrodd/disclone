@@ -4,6 +4,9 @@ import { Message } from '../types'
 import { Request, Response, Router } from 'express'
 import { decodeToken } from '../utils/middleware'
 
+//TODO refactor for readability/logical layout
+
+
 const messagesRouter = Router()
 messagesRouter.post('/', decodeToken, async (req: Request, res: Response) => {
   const { text, userId, channelId } = req.body

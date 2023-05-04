@@ -5,6 +5,8 @@ import Router from 'express'
 
 const channelsRouter = Router()
 
+//TODO refactor for readability/logical layout
+
 // get all channels
 channelsRouter.get('/', async (_req: Request, res: Response) => {
   try {
