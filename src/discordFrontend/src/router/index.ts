@@ -6,11 +6,6 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: LoginView,
-    },
-    {
-      path: "/disclone",
       name: "Disclone",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route

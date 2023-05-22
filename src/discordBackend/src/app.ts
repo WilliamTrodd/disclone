@@ -1,13 +1,26 @@
-const express = require('express');
-const usersRouter = require('./controllers/users');
-const serversRouter = require('./controllers/servers');
-const {decodeToken} = require('./utils/middleware')
+import express from 'express'
+import usersRouter from './api/users'
+import channelsRouter from './api/channels'
+import serversRouter from './api/servers'
+import messagesRouter from './api/messages'
+import * as admin from 'firebase-admin'
+import cors from 'cors'
 
+const discordApp = express()
 
-const discordApp = express();
-discordApp.use(express.json());
-//discordApp.use(decodeToken);
-discordApp.use('/api/users', usersRouter);
+admin.initializeApp({
+  credential: admin.credential.cert({
+    privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY,
+    clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
+    projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
+  }),
+})
+
+discordApp.use(cors())
+discordApp.use(express.json())
+discordApp.use('/api/users', usersRouter)
+discordApp.use('/api/channels', channelsRouter)
 discordApp.use('/api/servers', serversRouter)
+discordApp.use('/api/messages', messagesRouter)
 
-module.exports = discordApp;
+export default discordApp

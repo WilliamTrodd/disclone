@@ -19,5 +19,6 @@ module.exports = {
   overrides: [{ files: ['*.vue', '*.ts'] }],
   rules: {
     'no-undef': 'off', // we let TypeScript handle this
+    'quotes': [2, 'single', {'avoidEscape': true}],
   },
 }

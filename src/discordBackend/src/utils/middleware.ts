@@ -1,16 +1,20 @@
-const firebaseAdmin = require('../config/firebase-config');
+import { NextFunction, Request, Response } from 'express'
+import { getAuth } from 'firebase-admin/auth'
 
-export const decodeToken = async (req, res, next) => {
-  const token = req.headers.authorization.split(' ')[1];
-  try {
-    const decodeValue = await firebaseAdmin.auth().verifyIdToken(token);
-    if (decodeValue) {
-      console.log(decodeValue);
-      return next();
+const decodeToken = async (req: Request, res: Response, next: NextFunction) => {
+  if (req.headers.authorization) {
+    const token = req.headers.authorization.split(' ')[1]
+    try {
+      const { uid } = await getAuth().verifyIdToken(token)
+      if (uid) {
+        return next()
+      }
+      return res.json({ message: 'Unauthorized' })
+    } catch (e) {
+      return res.json({ message: 'Internal Error' })
     }
-    return res.json({message: "Unauthorized"});
-  } catch (e) {
-    return res.json({ message: "Internal Error"});
   }
+  return res.json({ message: 'Unauthorized' })
 }
 
+export { decodeToken }
